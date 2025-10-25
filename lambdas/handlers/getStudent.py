@@ -2,8 +2,9 @@ from requests import Response
 import boto3
 import json
 import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils import getStudentPoints, getStudentEventsAttended
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import get_attendance_points, get_total_attendance_points, get_bonus_points, get_number_of_missed_sessions
+
 dynamodb = boto3.client('dynamodb', region_name='us-east-1')
 response = dynamodb.list_tables()
 # Get table info for Students table
@@ -11,7 +12,7 @@ table_info = dynamodb.describe_table(TableName="Student")
 # print(table_info)
 
 # Teacher can search up student by name and get their information
-def getStudent(event): #add back (event, student_id) later 
+def getStudent(student_id): #add back (event, student_id) later 
     # try:
         # student_id = event['student_id']
         # student_id = event['pathParameters'].get('student_id')
@@ -19,7 +20,7 @@ def getStudent(event): #add back (event, student_id) later
         response = dynamodb.get_item(
             TableName="Student",
             Key={
-                'student_id': {'S': event["student_id"]} #change to just "student_id"
+                'student_id': {'S': student_id} #change to just "student_id"
             }
         )
 

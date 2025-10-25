@@ -1,4 +1,5 @@
 from utils import http_method, raw_path, path_params, response
+from lambdas.handlers.getStudent import getStudent
 
 
 # Lambda func to route to different backend endpoints
@@ -9,7 +10,7 @@ def route(event, context):
 
     try:
         if path.startswith("/student/") and method == "GET" and "student_id" in params:
-            return getStudent(event, params["student_id"])
+            return getStudent(params["student_id"])
         
         return response(404, {"message": f"No route for {method} {path}"})
     

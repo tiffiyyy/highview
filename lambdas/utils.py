@@ -12,7 +12,7 @@ def get_total_attendance_points(session_id): # num_session_types * 5
 def get_bonus_points(student_id):
     pass
 
-def get_number_of_missed_session(student_id):
+def get_number_of_missed_sessions(student_id):
     pass
 
 def http_method(event):
