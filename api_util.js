@@ -1,0 +1,1 @@
+// Single call to be made by frontend adjusted by param for different endpoint
