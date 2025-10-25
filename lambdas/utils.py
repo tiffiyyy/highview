@@ -21,7 +21,7 @@ def get_attendance_points(student_id):
     
     return total_points
 
-print(get_attendance_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
+# print(get_attendance_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 # get total possible attendance points
 def get_total_attendance_points(session_id): # num_session_types * 5
         # Scan the entire Session table to get all sessions
@@ -37,7 +37,7 @@ def get_total_attendance_points(session_id): # num_session_types * 5
         
         return total_possible_points
 
-print(get_total_attendance_points("6e5ea788-ca48-5084-87e2-05b2270b67d8"))
+# print(get_total_attendance_points("6e5ea788-ca48-5084-87e2-05b2270b67d8"))
 
 
 def get_bonus_points(student_id):
@@ -54,11 +54,11 @@ def get_bonus_points(student_id):
         total_bonus_points += float(record['points']['N'])
     
     return total_bonus_points
-print(get_bonus_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
+# print(get_bonus_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 
 def get_student_total_points(student_id):
     return get_attendance_points(student_id) + get_bonus_points(student_id)
-print(get_student_total_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
+# print(get_student_total_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 
 def get_number_of_missed_sessions(student_id):
     response = dynamodb.query(
@@ -74,7 +74,7 @@ def get_number_of_missed_sessions(student_id):
             missed_sessions += 1
     return missed_sessions
 
-print(get_number_of_missed_sessions("47502221-0d40-5bbb-b9dd-d40a316760dc"))
+# print(get_number_of_missed_sessions("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 
     
     
