@@ -102,7 +102,7 @@ def make_student_id(first, last, email):
 def cors_headers():
     return {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type,Authorization",
+        "Access-Control-Allow-Headers": "*",
         "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
     }
 

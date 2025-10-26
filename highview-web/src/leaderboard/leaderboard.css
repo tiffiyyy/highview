@@ -200,6 +200,8 @@
     background: #4E90F5;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
     cursor: pointer;
+    font-size: 17px;
+    color: white;
 }
 
 .not-selected {
@@ -211,6 +213,116 @@
     border-radius: 100px;
     border: 1px solid #E0E0E0;
     background: #FFF;
+    font-size: 17px;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
     cursor: pointer;
 }
+
+
+.studentlist {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 30px;
+    margin-left: 220px; /* align with sorting-bar and placements-top3 */
+    width: 1048px;
+    border: 1px solid rgba(105,105,105,0.18);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    background: #FFF;
+    overflow: hidden; /* so inner rows don't visually poke outside radius */
+    font-family: Inter, system-ui, sans-serif;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+/* each row */
+.studentrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    min-height: 60px;
+    box-sizing: border-box;
+    padding: 12px 16px;
+
+    /* we'll alternate backgrounds below */
+    background-color: #EFF5FE82;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* remove bottom border on last row */
+.studentrow:last-child {
+    border-bottom: none;
+}
+
+/* alternating colors like leaderboard tables */
+.studentrow:nth-child(even) {
+    background-color: #FFFFFF; /* white */
+}
+.studentrow:nth-child(odd) {
+    background-color: #EFF5FE82; /* light blue tint */
+}
+
+/* left side: rank + avatar + name all in a row */
+.student-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+/* rank number */
+.rank-num {
+    width: 24px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    flex-shrink: 0;
+}
+
+/* avatar in the list (NOT podium) */
+.student-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(0,0,0,0.15);
+    background: #d9d9d9; /* fallback gray if no img yet */
+}
+
+/* student name */
+.student-display-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* right side: points column */
+.student-points {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* badge style for points */
+.points-badge {
+    background: #FFF;
+    border: 1px solid #BFC5CA;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    padding: 8px 16px;
+    line-height: 1.2;
+    min-width: 90px;
+    text-align: center;
+}
+
