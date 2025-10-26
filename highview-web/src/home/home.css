@@ -45,6 +45,31 @@ h1 {
 
 }
 
+
+
+h2{
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
+  letter-spacing: -0.2px;
+  margin-left: 15px;
+}
+
+h3{
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
+  letter-spacing: -0.2px;
+  margin-left: 15px;
+  padding-bottom: 15px;
+}
+
 .current-date{
     color: #000;
     font-family: Inter;
@@ -55,7 +80,7 @@ h1 {
 .calendar {
     margin-left: 18px;
     width: 1130px;
-    height: 450px;
+    height: 380px;
     flex-shrink: 0;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
@@ -65,17 +90,18 @@ h1 {
 
 .calendar-grid {
     width: 1130px;
-    height: 300px;
+    height: 270px;
     flex-shrink: 0;
     border-radius: 0 0 8px 8px;
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap; 
     margin-left: 15px;
+    margin-top: 20px;
 }
 
 .calendar-box {
-    width: 125px;
+    width: 122px;
     height: 123px;
     flex-shrink: 0;
     fill: #d4f5ff;
@@ -119,100 +145,161 @@ h1 {
     margin-bottom: 10px; /* Optional: adds space between weeks */
 }
 
-/* Social Post CSS */
-/* Posts section container */
-.posts-section {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 24px;
-    margin-left: 240px;
-  }
-  
-  /* Section title */
-  .section-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #111827;
-  }
-  
-  /* Post card */
-  .post-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-  }
-  
-  /* Post header */
-  .post-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-  }
-  
-  .profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .username {
-    font-weight: 600;
-    color: #111827;
-  }
-  
-  /* Post body (main flex area) */
-  .post-body {
-    display: flex;
-    border-top: 1px solid #e5e7eb;
-  }
-  
-  /* Left (image placeholder) */
-  .post-image {
-    flex: 2;
-    background-color: #f3f4f6;
-    height: 420px;
-  }
-  
-  /* Right (caption + icons + likes) */
-  .post-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid #e5e7eb;
-    padding: 16px;
-  }
-  
-  .caption {
-    font-size: 14px;
-    color: #374151;
-    margin-bottom: 12px;
-  }
-  
-  .post-icons {
-    display: flex;
-    gap: 12px;
-    font-size: 20px;
-    color: #6b7280;
-  }
-  
-  .liked-by {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-  }
-  
-  .like-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+.card-block {
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+
+.card-header {
+  border-bottom: 1px solid #E5E7EB;
+  padding: 12px 16px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  background-color: #FFF;
+}
+
+
+.posts-card {
+  border-top: none;
+}
+
+.post-card {
+  border-top: 1px solid #E5E7EB;
+  margin-top: 0;
+  background: #fff;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* post header row (avatar + name) */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.profile-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #D1D5DB;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* main body split: left image / right side info */
+.post-body {
+  display: flex;
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+/* left big image area */
+.post-image {
+  flex: 2;
+  background-color: #F9FAFB;
+  min-height: 360px;
+  max-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #E5E7EB;
+}
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* right side column */
+.post-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  justify-content: space-between;
+  min-width: 200px;
+}
+
+.caption {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #374151;
+  margin-bottom: 16px;
+}
+
+.captionblock {
+  border-radius: 8px;
+  width: 500x;
+  object-fit: cover;
+  border: 0;
+  border-bottom: 1px solid #D1D5DB;
+}
+
+/* icons row */
+.post-icons {
+  display: flex;
+  gap: 16px;
+  font-size: 18px;
+  color: #6B7280;
+  margin-bottom: 16px;
+}
+
+/* liked-by avatars stack vertically like screenshot */
+.liked-by {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.like-row {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 220px;     /* clears sidebar */
+  padding-top: 80px;      /* clears sticky header */
+  padding-right: 24px;
+  max-width: 1180px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 16px;
+}
+
+
+.like-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px #D1D5DB;
+}
+
+/* little username next to avatar list (optional if you want "and others") */
+.like-text {
+  font-size: 12px;
+  color: #4B5563;
+}
+
+/* utility */
+.hidden {
+  display: none;
+}
   

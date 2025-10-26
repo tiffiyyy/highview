@@ -1,3 +1,10 @@
+.settings-page {
+    display: flex; 
+    align-items: flex-start;
+    margin-left: 220px;
+    padding-top: 20px; 
+} 
+
 .sticky-header {
     position: fixed;
     top: 0;
@@ -9,7 +16,7 @@
 
     height: 70px;
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: flex-start;
 
     background-color: #ffffff;
@@ -18,4 +25,6 @@
     padding-left: 40px;
     margin: 0;
     z-index: 10;
+
+    flex-direction: column;
 }
