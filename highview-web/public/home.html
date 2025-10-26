@@ -1,82 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document Title</title>
-        <link rel="stylesheet" href="../src/sidebar.css">
-        <link rel="stylesheet" href="../src/home/home.css">
-    </head>
-    <body>
-        <div id="sidebar-container"></div>
-        <header class="sticky-header">
-            <h2>Home</h2>
-        </header>
-        <div class="calendar-page">
-            <div id="sidebar-container"></div>
-            <!-- Calendar Event -->
-            <div class="calendar">
-                <header> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="../src/sidebar.css">
+    <link rel="stylesheet" href="../src/home/home.css">
+</head>
+<body>
+    <!-- SIDEBAR (will get injected) -->
+    <div id="sidebar-container"></div>
+
+    <!-- TOP FIXED HEADER -->
+    <header class="sticky-header">
+        <h2>Home</h2>
+    </header>
+
+    <!-- MAIN PAGE CONTENT (everything to the right of sidebar, under header) -->
+    <main class="main-content">
+
+        <!-- CALENDAR BLOCK -->
+        <section class="program-calendar-card card-block">
+            <div class="card-header">Program Calendar</div>
+
+            <div class="card-body" style="padding:16px;">
+                <header>
                     <h1>HighView General Calendar</h1>
                 </header>
-                    <h2 class="current-date"></h2> 
-                <div class="calendar-grid">
-                    <!-- Weekday Headers -->
-                    <div class="weekday">Mon</div>
-                    <div class="weekday">Tue</div>
-                    <div class="weekday">Wed</div>
-                    <div class="weekday">Thu</div>
-                    <div class="weekday">Fri</div>
-                    <div class="weekday">Sat</div>
-                    <div class="weekday">Sun</div>
-                    <div id="calendar-days"></div>
+
+                <h2 class="current-date"></h2>
+
+                <div class="program-calendar-inner">
+                    <div class="calendar">
+                        <div class="calendar-grid">
+                            <!-- weekday row -->
+                            <div class="weekday">Mon</div>
+                            <div class="weekday">Tue</div>
+                            <div class="weekday">Wed</div>
+                            <div class="weekday">Thu</div>
+                            <div class="weekday">Fri</div>
+                            <div class="weekday">Sat</div>
+                            <div class="weekday">Sun</div>
+
+                            <!-- days will be injected by JS -->
+                            <div id="calendar-days"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Social Interaction/Posts -->
-        <div class="posts-section">
-            <h3 class="section-title">Posts</h3>
-        
-            <div class="post-card">
-            <div class="post-header">
-                <img src="https://via.placeholder.com/40" alt="profile" class="profile-img" />
-                <span class="username">Helena</span>
-            </div>
-        
-            <div class="post-body">
-                <div class="post-image">
-                    <img src="../src/assets/studying.jpg" alt="people studying"/>
+        </section>
+
+        <!-- POSTS BLOCK -->
+        <section class="card-block posts-card">
+            <div class="card-header">Posts</div>
+
+            <article class="post-card">
+                <!-- post header -->
+                <div class="post-header">
+                    <img src="https://via.placeholder.com/40" alt="profile" class="profile-img" />
+                    <span class="username">Helena</span>
                 </div>
-                <div class="post-side">
-                <p class="caption">
-                    Caption caption caption caption caption caption caption caption caption.
-                </p>
-                <div class="post-icons">
-                    <i>♡</i>
-                    <i>💬</i>
-                    <i>✈️</i>
+
+                <!-- body split -->
+                <div class="post-body">
+                    <!-- left image -->
+                    <div class="post-image">
+                        <img src="../src/assets/studying.jpg" alt="people studying" />
+                    </div>
+
+                    <!-- right column -->
+                    <div class="post-side">
+                        <div class="captionblock">
+                            <p class="caption">
+                                Caption caption caption caption caption caption caption caption caption.
+                            </p>
+
+                            <div class="post-icons">
+                                <i>♡</i>
+                                <i>💬</i>
+                                <i>✈️</i>
+                            </div>
+                        </div>
+
+                        <div class="liked-by">
+                            <div class="like-row">
+                                <img src="https://via.placeholder.com/24" class="like-avatar" />
+                                <img src="https://via.placeholder.com/24" class="like-avatar" />
+                                <img src="https://via.placeholder.com/24" class="like-avatar" />
+                                <img src="https://via.placeholder.com/24" class="like-avatar" />
+                            </div>
+                            <span class="like-text">Liked by 24 students</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="liked-by">
-                    <img src="https://via.placeholder.com/24" class="like-avatar" />
-                    <img src="https://via.placeholder.com/24" class="like-avatar" />
-                    <img src="https://via.placeholder.com/24" class="like-avatar" />
-                    <img src="https://via.placeholder.com/24" class="like-avatar" />
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>  
-        <!-- Testers -->
-        <a href="createEvents.html" style="margin-left: 200px">Create Events</a>
-        <a href="updateEvents.html" style="margin-left: 200px">Update Events</a>
-        <a href="profiles.html" style="margin-left: 200px">Profile Template</a>
-        <script>
-            fetch('../src/sidebar.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('sidebar-container').innerHTML = html;
-                });
-        </script>
-        <script src="../src/home/home.js"></script> 
-    </body>
+            </article>
+        </section>
+
+        <!-- TEST LINKS -->
+        <section class="debug-links" style="display:flex; gap:16px; flex-wrap:wrap; font-size:14px;">
+            <a href="createEvents.html">Create Events</a>
+            <a href="updateEvents.html">Update Events</a>
+            <a href="profiles.html">Profile Template</a>
+        </section>
+
+    </main>
+
+    <!-- INJECT SIDEBAR HTML -->
+    <script>
+        fetch('../src/sidebar.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('sidebar-container').innerHTML = html;
+            });
+    </script>
+
+    <!-- PAGE LOGIC -->
+    <script src="../src/home/home.js"></script>
+</body>
 </html>
