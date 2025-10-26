@@ -96,4 +96,33 @@ async function createEvent(eventData) {
     }
 }
 
-export { getLeaderboards, searchStudents, createEvent };
+/**
+ * Get all events/sessions from backend
+ * @returns {Promise<Array>} Array of event/session data
+ */
+async function getEvents() {
+    try {
+        console.log('Fetching events from:', `${API_BASE_URL}/events`);
+        const response = await fetch(`${API_BASE_URL}/events`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Received events data:', data);
+        
+        // The API returns data wrapped in a body object, unwrap it
+        if (data && typeof data === 'object' && 'body' in data) {
+            const unwrapped = typeof data.body === 'string' ? JSON.parse(data.body) : data.body;
+            return unwrapped.sessions || [];
+        }
+        
+        return data.sessions || [];
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        throw error;
+    }
+}
+
+export { getLeaderboards, searchStudents, createEvent, getEvents };
