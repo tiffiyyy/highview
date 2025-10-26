@@ -1,9 +1,14 @@
 import json
 import datetime
 import boto3
+import os
 # Reduce info from api calls to necessary attributes
 
-dynamodb = boto3.client('dynamodb', region_name='us-east-1')
+dynamodb = boto3.client(
+        'dynamodb',
+        region_name='us-east-1',
+        aws_access_key_id=os.getenv("key_id"),
+        aws_secret_access_key=os.getenv("access_key"))
 
 def get_attendance_points(student_id):
     # Query attendance records for the student
@@ -21,7 +26,7 @@ def get_attendance_points(student_id):
     
     return total_points
 
-print(get_attendance_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
+
 # get total possible attendance points
 def get_total_attendance_points(session_id): # num_session_types * 5
         # Scan the entire Session table to get all sessions
@@ -36,8 +41,6 @@ def get_total_attendance_points(session_id): # num_session_types * 5
         total_possible_points = session_count * 5
         
         return total_possible_points
-
-print(get_total_attendance_points("6e5ea788-ca48-5084-87e2-05b2270b67d8"))
 
 
 def get_bonus_points(student_id):
@@ -55,7 +58,6 @@ def get_bonus_points(student_id):
     
     return total_bonus_points
 
-print(get_bonus_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 
 def get_number_of_missed_sessions(student_id):
     response = dynamodb.query(
@@ -70,10 +72,6 @@ def get_number_of_missed_sessions(student_id):
         if record['points']['N'] == "2.5" or record['points']['N'] == "0":
             missed_sessions += 1
     return missed_sessions
-
-print(get_number_of_missed_sessions("47502221-0d40-5bbb-b9dd-d40a316760dc"))
-
-    
     
 
 def http_method(event):
@@ -102,6 +100,15 @@ def response(status, body):
         "headers": { **cors_headers(), "Content-Type": "application/json" },
         "body": json.dumps(body),
     }
+
+def get_json(event):
+    body = event.get("body")
+    if not body:
+        return {}
+    try:
+        return json.loads(body)
+    except json.JSONDecodeError:
+        raise ValueError("Invalid JSON")
 
 # need to add date column to attendance/bonus points?
 def now_iso():
