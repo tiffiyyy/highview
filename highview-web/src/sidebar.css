@@ -58,6 +58,10 @@
     text-decoration: none;
 }
 
+.sidebar h2 {
+    font-size: 16px;
+}
+
 .logo-button {
     border: none;
     background: none;
