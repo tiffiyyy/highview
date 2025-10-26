@@ -138,21 +138,11 @@ h2 {
     align-items: center;
     border-radius: 20px 20px 0 0;
     border: none;
+    margin-bottom: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.19);
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);   
 }
 
-.tasks{
-    margin-top: 25px;
-    margin-left:25px;
-    margin-right:25px;
-    width: 995px;
-    height: 90px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.22);
-    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
-}
 
 .calendaricon{
     display: flex;
@@ -211,11 +201,8 @@ h5{
     margin-bottom: 40px;
 }
 
-.tasks {
-    background-color: #fff;
-}
 
-.task1 {
+.tasks{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -223,6 +210,16 @@ h5{
 
     border-radius: 8px;
     background-color: #fff;
+
+    margin-top: 15px;
+    margin-left:25px;
+    margin-right:25px;
+    width: 995px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
 }
 
 h1{
@@ -243,6 +240,45 @@ h1{
     border: 1px solid #47B299;
     background: rgba(10, 192, 0, 0.22);
     color: #00674A;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 22.5px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.meetinglabel{
+    width: 68px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #F5BB4E;
+    background: rgba(245, 187, 78, 0.35);
+    color: #A26D0A;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 22.5px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.homeworklabel{
+    width: 86px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #4E90F5;
+    background: rgba(78, 144, 245, 0.23);
+    color: #003C67;
     font-family: Inter;
     font-size: 13px;
     font-style: normal;
