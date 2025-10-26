@@ -34,4 +34,3 @@ def handler(event, context):
                 "total_points": student['total_points']['N']
             })
     return list_of_students
-
