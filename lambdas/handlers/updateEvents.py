@@ -1,70 +1,75 @@
 import boto3
 import json
-import uuid
-import sys, os
+import os, sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import response, now_iso
 
 dynamodb = boto3.client(
-        'dynamodb',
-        region_name='us-east-1',
-        aws_access_key_id=os.getenv("key_id"),
-        aws_secret_access_key=os.getenv("access_key"))
+    'dynamodb',
+    region_name='us-east-1',
+    aws_access_key_id=os.getenv("key_id"),
+    aws_secret_access_key=os.getenv("access_key"),
+)
 
-def handler(event, context):
-    """
-    Create a new session in the Session table
-    Expected event body: {
-        "session_name": "string",
-        "session_type": "string", 
-        "session_date": "string"
-    }
-    """
 
-    # Parse the request body
-    if isinstance(event.get('body'), str):
-        body = json.loads(event['body'])
-    else:
-        body = event.get('body', {})
-    
-    # Validate required fields
-    required_fields = ['session_name', 'session_type', 'session_date']
-    for field in required_fields:
-        if field not in body:
-            return response(400, {"error": f"Missing required field: {field}"})
-    
-    # retrieve session ID
-    session_id = body["session_id"]
-    
-    # Create the session item for DynamoDB
-    session_item = {
-        'session_id': {'S': session_id},
-        'session_name': {'S': body['session_name']},
-        'session_type': {'S': body['session_type']},
-        'session_date': {'S': body['session_date']},
-        'session_description': {'S': body['session_description']},
-        'session_location': {'S': body['session_location']},
-        'session_time': {'S': body['session_time']},
-        'created_at': {'S': now_iso()}
-    }
-    
-    # Put the item in the Session table
-    dynamodb.put_item(
-        TableName='Session',
-        Item=session_item
+def updateSession(event, context):
+    raw = event.get("body")
+    body = json.loads(raw) if isinstance(raw, str) else (raw or {})
+
+    session_id = (event.get("pathParameters") or {}).get("session_id")
+    if not session_id:
+        return response(400, {"message": "path parameter 'session_id' is required"})
+
+    got = dynamodb.get_item(
+        TableName="Session",
+        Key={"session_id": {"S": session_id}},
     )
-    
-    # Return success response with the created session
-    return response(201, {
-        "message": "Session created successfully",
+    if "Item" not in got:
+        return response(404, {"message": "Session not found"})
+
+    old_item = got["Item"]
+
+    new_item = dict(old_item)
+
+    # update fields
+    fields = [
+        "session_name",
+        "session_type",
+        "session_date",
+        "session_description",
+        "session_location",
+        "session_time",
+        "email",
+    ]
+
+    for f in fields:
+        if f in body and body[f] is not None:
+            if f == "email":
+                new_item["mentor_email"] = {"S": str(body[f])}
+            else:
+                new_item[f] = {"S": str(body[f])}
+
+    if "created_at" not in new_item:
+        new_item["created_at"] = {"S": now_iso()}
+    new_item["updated_at"] = {"S": now_iso()}
+
+    new_item["session_id"] = {"S": session_id}
+
+    dynamodb.put_item(TableName="Session", Item=new_item)
+
+    return response(200, {
+        "message": "Session updated successfully",
         "session": {
-            "session_id": session_id,
-            "session_name": body['session_name'],
-            "session_type": body['session_type'],
-            "session_date": body['session_date'],
-            "session_description": body['session_description'],
-            "session_location": body['session_location'],
-            "session_time": body['session_time'],
-            "created_at": session_item['created_at']['S']
+            "session_id": new_item["session_id"]["S"],
+            "session_name": new_item.get("session_name", {}).get("S", ""),
+            "session_type": new_item.get("session_type", {}).get("S", ""),
+            "session_date": new_item.get("session_date", {}).get("S", ""),
+            "session_description": new_item.get("session_description", {}).get("S", ""),
+            "session_location": new_item.get("session_location", {}).get("S", ""),
+            "session_time": new_item.get("session_time", {}).get("S", ""),
+            "email": new_item.get("mentor_email", {}).get("S", ""),
+            "created_at": new_item.get("created_at", {}).get("S", ""),
+            "updated_at": new_item.get("updated_at", {}).get("S", ""),
         }
     })
