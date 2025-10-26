@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document Title</title>
+        <link rel="stylesheet" href="../src/sidebar.css">
+        <link rel="stylesheet" href="../src/profiles/profiles.css">
+    </head>
+    <body>
+        <div id="sidebar-container"></div>
+        <header class="sticky-header">
+            <h2>Profiles</h2>
+        </header>
+        <div class="profiles-page">
+            <div class="searchblock">
+                <svg class="search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20.9999 21.0004L16.6499 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <form action="/search" method="get">
+                    <input class="search" type="search" name="q" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+        <div class="sorting-bar">
+            <button class="selected">Weekly</button>
+            <button class="not-selected">Monthly</button>
+            <button class="not-selected">All Time</button>
+        </div>
+        <div class="profile-square">
+            <div class="top1">
+                <div class="avatar-pfp1"></div>
+                <svg class="avatar" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 42 42" fill="none">
+                    <circle cx="21" cy="21" r="21" fill="#4E90F5"/>
+                </svg>
+                <p class="ranking1">1</p>
+            </div>
+            <div class="info">
+                <h1>Name</h1>
+            </div>
+        </div>
+        <script>
+            fetch('../src/sidebar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('sidebar-container').innerHTML = html;
+                });
+        </script>
+    </body>
+</html>
