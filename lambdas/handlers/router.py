@@ -1,26 +1,26 @@
 from utils import http_method, raw_path, path_params, response, clean_path, get_json, strip_stage
 from lambdas.handlers.getStudent import getStudent
+from lambdas.handlers.createEvents import createSession
+from lambdas.handlers.deleteEvents import deleteSession
 
 
 # Lambda func to route to different backend endpoints
 def route(event, context):
     method = http_method(event)
-    path   = raw_path(event)
-    stage  = (event.get("requestContext", {}).get("stage") or
-              event.get("requestContext", {}).get("http", {}).get("stage"))
-    
-    clean = strip_stage(path, stage)
-    segs  = [s for s in clean.strip("/").split("/") if s]
+    path = raw_path(event)
+    params = path_params(event)
 
     try:
-        if method == "GET" and segs[0] == "student":
-            student_id = segs[1]
-            # data = get_json(event)
-            # student_id = data.get("student_id")
-            if not student_id:
-                return response(400, {"message": "student_id is required"})
-            return getStudent(student_id)
-        
+        # Student endpoints
+        if path.startswith("/student/") and method == "GET" and "student_id" in params:
+            return getStudent(params["student_id"])  
+        # Session creation endpoints
+        elif path == "/sessions" and method == "POST":
+            return createSession(event)
+        # Session deletion endpoints
+        elif path == "/sessions" and method == "DELETE" and "session_type" and "session_id" in params:
+            return deleteSession(params["session_type"], params["session_id"])
+
         return response(404, {"message": f"No route for {method} {path}"})
     
     except ValueError as ve:
