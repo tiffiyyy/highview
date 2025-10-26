@@ -3,9 +3,10 @@ import json
 import uuid
 import sys, os
 import base64
+import qrcode
+import qrcode.image.svg as qsvg
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import response, now_iso
-import qrcode # need to add this dependency?
 
 dynamodb = boto3.client(
         'dynamodb',
@@ -14,14 +15,6 @@ dynamodb = boto3.client(
         aws_secret_access_key=os.getenv("access_key"))
 
 def createSession(event, context):
-    """
-    Create a new session in the Session table
-    Expected event body: {
-        "session_name": "string",
-        "session_type": "string", 
-        "session_date": "string"
-    }
-    """
 
     # Parse the request body
     if isinstance(event.get('body'), str):
@@ -29,21 +22,20 @@ def createSession(event, context):
     else:
         body = event.get('body', {})
     
-    # Validate required fields
-    required_fields = ['session_name', 'session_type', 'session_date']
-    for field in required_fields:
-        if field not in body:
-            return response(400, {"error": f"Missing required field: {field}"})
+    # Session name, type, date, mentor need to be required in html
     
     # Generate a unique session ID
     session_id = str(uuid.uuid4())
 
     url = f"<url-here>?session_id={session_id}"
-    qr_img = qrcode.make(url)
 
-    # encode this to base 64 and store in tbl
-    with open(qr_img, "rb") as image_file:
-        qr_encoded = base64.b64encode(image_file.read()).decode('utf-8')
+    from io import BytesIO
+
+    qr_img = qrcode.make(url, image_factory=qsvg.SvgImage)
+    buffer = BytesIO()
+    qr_img.save(buffer)
+    svg_xml = buffer.getvalue().decode("utf-8")
+    # qr_encoded = base64.b64encode(buffer.getvalue()).decode('utf-8')
     
     # Create the session item for DynamoDB
     session_item = {
@@ -55,7 +47,8 @@ def createSession(event, context):
         'session_location': {'S': body['session_location']},
         'session_time': {'S': body['session_time']},
         'created_at': {'S': now_iso()},
-        'qr_img': {'B': qr_encoded}
+        'qr_img': {'S': svg_xml},
+        'mentor_email': {'S': body['email']}
     }
     
     # Put the item in the Session table
@@ -78,3 +71,17 @@ def createSession(event, context):
             "created_at": session_item['created_at']['S']
         }
     })
+
+if __name__ == "__main__":
+    test_event = {
+        "body": json.dumps({
+            "session_name": "Intro to AWS",
+            "session_type": "Workshop",
+            "session_date": "2025-11-01",
+            "session_description": "Hands-on AWS workshop for students",
+            "session_location": "Room 201",
+            "session_time": "10:00 AM",
+            "email": "mentor@example.com"
+        })
+    }
+    result = createSession(test_event, None)

@@ -100,7 +100,7 @@ def load_bonus_points(dynamodb, email_to_sid):
 
 if __name__ == "__main__":
     dynamodb = boto3.resource("dynamodb")
-    email_to_sid = load_students(dynamodb)
+    email_to_sid =  load_students(dynamodb)
     load_sessions(dynamodb)
     load_attendance(dynamodb, email_to_sid)
     load_bonus_points(dynamodb, email_to_sid)
