@@ -60,19 +60,26 @@ h1 {
     line-height: 150%; /* 30px */
     letter-spacing: -0.2px;
     margin-left: 15px;
-
 }
+
+.coursescalendar{
+    border: none;
+    width: 1110px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+}
+
 
 .current-date{
     color: #000;
     font-family: Inter;
     font-size: 15px;
     margin-left: 15px;
-
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .calendar {
-    margin-left: 18px;
+    margin-top: 30px;
     width: 1110px;
     height: 450px;
     flex-shrink: 0;
@@ -118,6 +125,8 @@ h1 {
     height: 20px; 
     flex-shrink: 0;
     flex-wrap: wrap; 
+    font-family: Inter;
+    font-size: 14px;
 }
 
 .date-num {
@@ -140,6 +149,7 @@ h1 {
 header {
     position: fixed;
     top: 0;
+    width: 1300px;
 
     /* push header to the right so it doesn't sit under the sidebar */
     left: 191px;          /* SAME as .sidebar width */
@@ -180,7 +190,7 @@ h2 {
 
 .searchblock{
     display: flex;
-    width: 1020px;
+    width: 1082px;
     height: 20px;
     margin-top: 35px;
     padding: 8px 16px 8px 12px;
@@ -226,7 +236,7 @@ input[type="search"] {
 
 .tasksblock{
     margin-top: 40px;
-    width: 1050px;
+    width: 1110px;
     height: 761px;
     flex-shrink: 0;
     border-radius: 20px;
@@ -236,7 +246,7 @@ input[type="search"] {
 
 .upcomingtasks{
     display: flex;
-    width: 160px;
+    width: 220px;
     height: 20px;
     padding: 22px 865px 22px 24px;
     align-items: center;
@@ -318,7 +328,7 @@ h5{
     margin-top: 15px;
     margin-left:25px;
     margin-right:25px;
-    width: 995px;
+    width: 1053px;
     height: 90px;
     flex-shrink: 0;
     border-radius: 8px;
@@ -326,7 +336,7 @@ h5{
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
 }
 
-h1{
+h3 {
     color: #000;
     font-family: Inter;
     font-size: 18px;
