@@ -59,6 +59,8 @@ def get_bonus_points(student_id):
     return total_bonus_points
 # print(get_bonus_points("47502221-0d40-5bbb-b9dd-d40a316760dc"))
 
+def get_student_total_points(student_id):
+    return get_attendance_points(student_id) + get_bonus_points(student_id)
 
 def get_number_of_missed_sessions(student_id):
     response = dynamodb.query(
