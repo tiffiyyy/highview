@@ -1,1 +1,0 @@
-# Reduce info from api calls to necessary attributes

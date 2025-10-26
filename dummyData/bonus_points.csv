@@ -1,0 +1,325 @@
+student_email,bonus_type,points
+aladdin.prince@davita.com,Additional Event,0.0
+aladdin.prince@davita.com,Participation,0.0
+aladdin.prince@davita.com,Thank you notes,0.0
+aladdin.prince@davita.com,Video content,1.0
+anna.arendelle@adobe.com,Additional Event,0.0
+anna.arendelle@adobe.com,Participation,0.0
+anna.arendelle@adobe.com,Thank you notes,1.0
+anna.arendelle@adobe.com,Video content,1.0
+anna.arendelle@davita.com,Additional Event,0.0
+anna.arendelle@davita.com,Participation,0.0
+anna.arendelle@davita.com,Thank you notes,1.0
+anna.arendelle@davita.com,Video content,1.0
+aragorn.elessar@guild.com,Additional Event,0.0
+aragorn.elessar@guild.com,Participation,0.0
+aragorn.elessar@guild.com,Thank you notes,1.0
+aragorn.elessar@guild.com,Video content,1.0
+ariel.triton@accenture.com,Additional Event,0.0
+ariel.triton@accenture.com,Participation,0.0
+ariel.triton@accenture.com,Thank you notes,1.0
+ariel.triton@accenture.com,Video content,1.0
+ariel.triton@ima.com,Additional Event,1.0
+ariel.triton@ima.com,Participation,0.0
+ariel.triton@ima.com,Thank you notes,1.0
+ariel.triton@ima.com,Video content,0.0
+aurora.rose@guild.com,Additional Event,0.0
+aurora.rose@guild.com,Participation,1.0
+aurora.rose@guild.com,Thank you notes,0.0
+aurora.rose@guild.com,Video content,0.0
+belle.french@accenture.com,Additional Event,0.0
+belle.french@accenture.com,Participation,0.0
+belle.french@accenture.com,Thank you notes,1.0
+belle.french@accenture.com,Video content,1.0
+bo.peep@adobe.com,Additional Event,0.0
+bo.peep@adobe.com,Participation,0.0
+bo.peep@adobe.com,Thank you notes,0.0
+bo.peep@adobe.com,Video content,1.0
+bo.peep@aws.com,Additional Event,0.0
+bo.peep@aws.com,Participation,0.0
+bo.peep@aws.com,Thank you notes,0.0
+bo.peep@aws.com,Video content,0.0
+buzz.lightyear@accenture.com,Additional Event,0.0
+buzz.lightyear@accenture.com,Participation,0.0
+buzz.lightyear@accenture.com,Thank you notes,0.0
+buzz.lightyear@accenture.com,Video content,0.0
+buzz.lightyear@adobe.com,Additional Event,0.0
+buzz.lightyear@adobe.com,Participation,0.0
+buzz.lightyear@adobe.com,Thank you notes,0.0
+buzz.lightyear@adobe.com,Video content,0.0
+captain.hook@aws.com,Additional Event,0.0
+captain.hook@aws.com,Participation,0.0
+captain.hook@aws.com,Thank you notes,0.0
+captain.hook@aws.com,Video content,0.0
+captain.hook@davita.com,Additional Event,0.0
+captain.hook@davita.com,Participation,1.0
+captain.hook@davita.com,Thank you notes,0.0
+captain.hook@davita.com,Video content,0.0
+cinderella.charming@accenture.com,Additional Event,0.0
+cinderella.charming@accenture.com,Participation,1.0
+cinderella.charming@accenture.com,Thank you notes,0.0
+cinderella.charming@accenture.com,Video content,0.0
+cinderella.charming@salesforce.com,Additional Event,0.0
+cinderella.charming@salesforce.com,Participation,1.0
+cinderella.charming@salesforce.com,Thank you notes,1.0
+cinderella.charming@salesforce.com,Video content,1.0
+daisy.duck@adobe.com,Additional Event,0.0
+daisy.duck@adobe.com,Participation,0.0
+daisy.duck@adobe.com,Thank you notes,0.0
+daisy.duck@adobe.com,Video content,0.0
+daisy.duck@guild.com,Additional Event,0.0
+daisy.duck@guild.com,Participation,0.0
+daisy.duck@guild.com,Thank you notes,0.0
+daisy.duck@guild.com,Video content,0.0
+donald.duck@adobe.com,Additional Event,0.0
+donald.duck@adobe.com,Participation,1.0
+donald.duck@adobe.com,Thank you notes,1.0
+donald.duck@adobe.com,Video content,1.0
+elsa.arendelle@accenture.com,Additional Event,1.0
+elsa.arendelle@accenture.com,Participation,0.0
+elsa.arendelle@accenture.com,Thank you notes,0.0
+elsa.arendelle@accenture.com,Video content,0.0
+elsa.arendelle@salesforce.com,Additional Event,0.0
+elsa.arendelle@salesforce.com,Participation,0.0
+elsa.arendelle@salesforce.com,Thank you notes,1.0
+elsa.arendelle@salesforce.com,Video content,1.0
+elsie.frozen@guild.com,Additional Event,0.0
+elsie.frozen@guild.com,Participation,0.0
+elsie.frozen@guild.com,Thank you notes,0.0
+elsie.frozen@guild.com,Video content,0.0
+frodo.baggins2@adobe.com,Additional Event,1.0
+frodo.baggins2@adobe.com,Participation,0.0
+frodo.baggins2@adobe.com,Thank you notes,1.0
+frodo.baggins2@adobe.com,Video content,1.0
+frodo.baggins@adobe.com,Additional Event,0.0
+frodo.baggins@adobe.com,Participation,1.0
+frodo.baggins@adobe.com,Thank you notes,0.0
+frodo.baggins@adobe.com,Video content,1.0
+gandalf.grey@aws.com,Additional Event,0.0
+gandalf.grey@aws.com,Participation,0.0
+gandalf.grey@aws.com,Thank you notes,1.0
+gandalf.grey@aws.com,Video content,1.0
+goofy.goof@davita.com,Additional Event,1.0
+goofy.goof@davita.com,Participation,0.0
+goofy.goof@davita.com,Thank you notes,0.0
+goofy.goof@davita.com,Video content,0.0
+goofy.goof@ima.com,Additional Event,0.0
+goofy.goof@ima.com,Participation,0.0
+goofy.goof@ima.com,Thank you notes,1.0
+goofy.goof@ima.com,Video content,1.0
+harry.potter@davita.com,Additional Event,0.0
+harry.potter@davita.com,Participation,0.0
+harry.potter@davita.com,Thank you notes,0.0
+harry.potter@davita.com,Video content,0.0
+harry.potter@jfg.com,Additional Event,0.0
+harry.potter@jfg.com,Participation,0.0
+harry.potter@jfg.com,Thank you notes,0.0
+harry.potter@jfg.com,Video content,0.0
+hermione.granger@accenture.com,Additional Event,0.0
+hermione.granger@accenture.com,Participation,0.0
+hermione.granger@accenture.com,Thank you notes,0.0
+hermione.granger@accenture.com,Video content,0.0
+jasmine.agrabah@accenture.com,Additional Event,1.0
+jasmine.agrabah@accenture.com,Participation,0.0
+jasmine.agrabah@accenture.com,Thank you notes,0.0
+jasmine.agrabah@accenture.com,Video content,1.0
+jasmine.agrabah@salesforce.com,Additional Event,0.0
+jasmine.agrabah@salesforce.com,Participation,1.0
+jasmine.agrabah@salesforce.com,Thank you notes,0.0
+jasmine.agrabah@salesforce.com,Video content,0.0
+jessie.cowgirl@accenture.com,Additional Event,0.0
+jessie.cowgirl@accenture.com,Participation,0.0
+jessie.cowgirl@accenture.com,Thank you notes,0.0
+jessie.cowgirl@accenture.com,Video content,0.0
+jessie.cowgirl@guild.com,Additional Event,0.0
+jessie.cowgirl@guild.com,Participation,0.0
+jessie.cowgirl@guild.com,Thank you notes,1.0
+jessie.cowgirl@guild.com,Video content,0.0
+kristoff.bjorgman@adobe.com,Additional Event,1.0
+kristoff.bjorgman@adobe.com,Participation,0.0
+kristoff.bjorgman@adobe.com,Thank you notes,1.0
+kristoff.bjorgman@adobe.com,Video content,1.0
+kristoff.bjorgman@ima.com,Additional Event,0.0
+kristoff.bjorgman@ima.com,Participation,1.0
+kristoff.bjorgman@ima.com,Thank you notes,1.0
+kristoff.bjorgman@ima.com,Video content,1.0
+legolas.greenleaf@salesforce.com,Additional Event,0.0
+legolas.greenleaf@salesforce.com,Participation,0.0
+legolas.greenleaf@salesforce.com,Thank you notes,0.0
+legolas.greenleaf@salesforce.com,Video content,0.0
+luna.lovegood@accenture.com,Additional Event,0.0
+luna.lovegood@accenture.com,Participation,1.0
+luna.lovegood@accenture.com,Thank you notes,0.0
+luna.lovegood@accenture.com,Video content,0.0
+maui.shapeshifter@davita.com,Additional Event,0.0
+maui.shapeshifter@davita.com,Participation,0.0
+maui.shapeshifter@davita.com,Thank you notes,0.0
+maui.shapeshifter@davita.com,Video content,0.0
+maui.shapeshifter@guild.com,Additional Event,0.0
+maui.shapeshifter@guild.com,Participation,0.0
+maui.shapeshifter@guild.com,Thank you notes,0.0
+maui.shapeshifter@guild.com,Video content,0.0
+merida.dunbroch@ima.com,Additional Event,0.0
+merida.dunbroch@ima.com,Participation,0.0
+merida.dunbroch@ima.com,Thank you notes,0.0
+merida.dunbroch@ima.com,Video content,0.0
+mickey.mouse@aws.com,Additional Event,1.0
+mickey.mouse@aws.com,Participation,0.0
+mickey.mouse@aws.com,Thank you notes,0.0
+mickey.mouse@aws.com,Video content,0.0
+mickey.mouse@salesforce.com,Additional Event,0.0
+mickey.mouse@salesforce.com,Participation,1.0
+mickey.mouse@salesforce.com,Thank you notes,0.0
+mickey.mouse@salesforce.com,Video content,0.0
+minnie.mouse@adobe.com,Additional Event,0.0
+minnie.mouse@adobe.com,Participation,0.0
+minnie.mouse@adobe.com,Thank you notes,0.0
+minnie.mouse@adobe.com,Video content,0.0
+minnie.mouse@guild.com,Additional Event,0.0
+minnie.mouse@guild.com,Participation,0.0
+minnie.mouse@guild.com,Thank you notes,0.0
+minnie.mouse@guild.com,Video content,0.0
+moana.waialiki@accenture.com,Additional Event,0.0
+moana.waialiki@accenture.com,Participation,0.0
+moana.waialiki@accenture.com,Thank you notes,1.0
+moana.waialiki@accenture.com,Video content,1.0
+mufasa.king@accenture.com,Additional Event,0.0
+mufasa.king@accenture.com,Participation,1.0
+mufasa.king@accenture.com,Thank you notes,0.0
+mufasa.king@accenture.com,Video content,0.0
+nala.lion@accenture.com,Additional Event,0.0
+nala.lion@accenture.com,Participation,0.0
+nala.lion@accenture.com,Thank you notes,0.0
+nala.lion@accenture.com,Video content,0.0
+naveen.frog@davita.com,Additional Event,0.0
+naveen.frog@davita.com,Participation,0.0
+naveen.frog@davita.com,Thank you notes,0.0
+naveen.frog@davita.com,Video content,0.0
+naveen.frog@salesforce.com,Additional Event,0.0
+naveen.frog@salesforce.com,Participation,0.0
+naveen.frog@salesforce.com,Thank you notes,0.0
+naveen.frog@salesforce.com,Video content,0.0
+neville.longbottom2@davita.com,Additional Event,0.0
+neville.longbottom2@davita.com,Participation,0.0
+neville.longbottom2@davita.com,Thank you notes,0.0
+neville.longbottom2@davita.com,Video content,0.0
+neville.longbottom@davita.com,Additional Event,0.0
+neville.longbottom@davita.com,Participation,0.0
+neville.longbottom@davita.com,Thank you notes,0.0
+neville.longbottom@davita.com,Video content,0.0
+olaf.snow@guild.com,Additional Event,0.0
+olaf.snow@guild.com,Participation,0.0
+olaf.snow@guild.com,Thank you notes,0.0
+olaf.snow@guild.com,Video content,0.0
+peter.pan@adobe.com,Additional Event,0.0
+peter.pan@adobe.com,Participation,0.0
+peter.pan@adobe.com,Thank you notes,0.0
+peter.pan@adobe.com,Video content,0.0
+pluto.pup@guild.com,Additional Event,0.0
+pluto.pup@guild.com,Participation,0.0
+pluto.pup@guild.com,Thank you notes,1.0
+pluto.pup@guild.com,Video content,0.0
+pluto.pup@jfg.com,Additional Event,0.0
+pluto.pup@jfg.com,Participation,0.0
+pluto.pup@jfg.com,Thank you notes,0.0
+pluto.pup@jfg.com,Video content,0.0
+pumbaa.warthog@davita.com,Additional Event,1.0
+pumbaa.warthog@davita.com,Participation,0.0
+pumbaa.warthog@davita.com,Thank you notes,0.0
+pumbaa.warthog@davita.com,Video content,0.0
+pumbaa.warthog@jfg.com,Additional Event,0.0
+pumbaa.warthog@jfg.com,Participation,0.0
+pumbaa.warthog@jfg.com,Thank you notes,0.0
+pumbaa.warthog@jfg.com,Video content,0.0
+rapunzel.gothel@accenture.com,Additional Event,0.0
+rapunzel.gothel@accenture.com,Participation,0.0
+rapunzel.gothel@accenture.com,Thank you notes,0.0
+rapunzel.gothel@accenture.com,Video content,0.0
+rapunzel.gothel@ima.com,Additional Event,0.0
+rapunzel.gothel@ima.com,Participation,0.0
+rapunzel.gothel@ima.com,Thank you notes,0.0
+rapunzel.gothel@ima.com,Video content,0.0
+rex.dino@accenture.com,Additional Event,1.0
+rex.dino@accenture.com,Participation,1.0
+rex.dino@accenture.com,Thank you notes,1.0
+rex.dino@accenture.com,Video content,1.0
+ron.weasley@aws.com,Additional Event,0.0
+ron.weasley@aws.com,Participation,1.0
+ron.weasley@aws.com,Thank you notes,0.0
+ron.weasley@aws.com,Video content,0.0
+ron.weasley@davita.com,Additional Event,0.0
+ron.weasley@davita.com,Participation,0.0
+ron.weasley@davita.com,Thank you notes,0.0
+ron.weasley@davita.com,Video content,0.0
+samwise.gamgee@davita.com,Additional Event,0.0
+samwise.gamgee@davita.com,Participation,1.0
+samwise.gamgee@davita.com,Thank you notes,0.0
+samwise.gamgee@davita.com,Video content,0.0
+samwise.gamgee@guild.com,Additional Event,0.0
+samwise.gamgee@guild.com,Participation,1.0
+samwise.gamgee@guild.com,Thank you notes,1.0
+samwise.gamgee@guild.com,Video content,1.0
+simba.lion@accenture.com,Additional Event,0.0
+simba.lion@accenture.com,Participation,0.0
+simba.lion@accenture.com,Thank you notes,0.0
+simba.lion@accenture.com,Video content,0.0
+simba.lion@jfg.com,Additional Event,0.0
+simba.lion@jfg.com,Participation,0.0
+simba.lion@jfg.com,Thank you notes,1.0
+simba.lion@jfg.com,Video content,1.0
+simone.cat@accenture.com,Additional Event,0.0
+simone.cat@accenture.com,Participation,0.0
+simone.cat@accenture.com,Thank you notes,1.0
+simone.cat@accenture.com,Video content,0.0
+simone.cat@guild.com,Additional Event,0.0
+simone.cat@guild.com,Participation,0.0
+simone.cat@guild.com,Thank you notes,0.0
+simone.cat@guild.com,Video content,0.0
+smee.sailor@accenture.com,Additional Event,0.0
+smee.sailor@accenture.com,Participation,0.0
+smee.sailor@accenture.com,Thank you notes,0.0
+smee.sailor@accenture.com,Video content,0.0
+smee.sailor@salesforce.com,Additional Event,0.0
+smee.sailor@salesforce.com,Participation,0.0
+smee.sailor@salesforce.com,Thank you notes,0.0
+smee.sailor@salesforce.com,Video content,0.0
+snow.white@guild.com,Additional Event,0.0
+snow.white@guild.com,Participation,0.0
+snow.white@guild.com,Thank you notes,1.0
+snow.white@guild.com,Video content,1.0
+snow.white@ima.com,Additional Event,0.0
+snow.white@ima.com,Participation,0.0
+snow.white@ima.com,Thank you notes,0.0
+snow.white@ima.com,Video content,0.0
+sven.reindeer@accenture.com,Additional Event,0.0
+sven.reindeer@accenture.com,Participation,0.0
+sven.reindeer@accenture.com,Thank you notes,0.0
+sven.reindeer@accenture.com,Video content,0.0
+sven.reindeer@guild.com,Additional Event,0.0
+sven.reindeer@guild.com,Participation,0.0
+sven.reindeer@guild.com,Thank you notes,0.0
+sven.reindeer@guild.com,Video content,0.0
+tiana.bayou@jfg.com,Additional Event,0.0
+tiana.bayou@jfg.com,Participation,0.0
+tiana.bayou@jfg.com,Thank you notes,0.0
+tiana.bayou@jfg.com,Video content,0.0
+timon.meerkat@davita.com,Additional Event,0.0
+timon.meerkat@davita.com,Participation,0.0
+timon.meerkat@davita.com,Thank you notes,0.0
+timon.meerkat@davita.com,Video content,0.0
+tinker.bell@aws.com,Additional Event,1.0
+tinker.bell@aws.com,Participation,1.0
+tinker.bell@aws.com,Thank you notes,0.0
+tinker.bell@aws.com,Video content,0.0
+wendy.darling@accenture.com,Additional Event,0.0
+wendy.darling@accenture.com,Participation,1.0
+wendy.darling@accenture.com,Thank you notes,0.0
+wendy.darling@accenture.com,Video content,0.0
+wendy.darling@aws.com,Additional Event,1.0
+wendy.darling@aws.com,Participation,0.0
+wendy.darling@aws.com,Thank you notes,0.0
+wendy.darling@aws.com,Video content,0.0
+woody.pride@accenture.com,Additional Event,0.0
+woody.pride@accenture.com,Participation,0.0
+woody.pride@accenture.com,Thank you notes,0.0
+woody.pride@accenture.com,Video content,0.0
