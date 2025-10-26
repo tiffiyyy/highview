@@ -21,8 +21,38 @@
                 </svg>
                 <form action="/search" method="get">
                     <input type="search" name="q" placeholder="Search...">
-                    <button type="submit">Search</button>
                 </form>
+            </div>
+            <div class="calendar">
+                    <h1>Courses Calendar</h1>
+                    <h2 class="current-date"></h2> 
+                <div class="calendar-grid">
+                    <!-- Weekday Headers -->
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                    <div id="calendar-days"></div>
+                    <!-- Days for Week 1 -->
+                    <button class="calendar-box today">Today</button>
+                    <button class="calendar-box">27</button>
+                    <button class="calendar-box">28</button>
+                    <button class="calendar-box">29</button>
+                    <button class="calendar-box">30</button>
+                    <button class="calendar-box">31</button>
+                    <button class="calendar-box">Nov 1</button>
+                    <!-- Days for Week 2 -->
+                    <button class="calendar-box">2</button>
+                    <button class="calendar-box">3</button>
+                    <button class="calendar-box">4</button>
+                    <button class="calendar-box">5</button>
+                    <button class="calendar-box">6</button>
+                    <button class="calendar-box">7</button>
+                    <button class="calendar-box">8</button>
+                </div>
             </div>
             <section class="tasksblock">
                 <section class="upcomingtasks">

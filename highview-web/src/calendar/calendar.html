@@ -6,6 +6,7 @@
     <title>Document Title</title>
     <link rel="stylesheet" href="calendar.css">
     <link rel="stylesheet" href="../sidebar.css">
+    <link href="./calendar.js" rel="javascript" />
 </head>
 <body>
     <div class="calendar-page">
@@ -15,8 +16,8 @@
         <div class="calendar">
             <header> 
                 <h1>Program Calendar</h1>
-                <h2 class="current-date"></h2>
             </header>
+                <h2 class="current-date"></h2> 
             <div class="calendar-grid">
                 <!-- Weekday Headers -->
                 <div class="weekday">Sun</div>
@@ -26,22 +27,23 @@
                 <div class="weekday">Thu</div>
                 <div class="weekday">Fri</div>
                 <div class="weekday">Sat</div>
+                <div id="calendar-days"></div>
                 <!-- Days for Week 1 -->
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
+                <button class="calendar-box today">Today</button>
+                <button class="calendar-box">27</button>
+                <button class="calendar-box">28</button>
+                <button class="calendar-box">29</button>
+                <button class="calendar-box">30</button>
+                <button class="calendar-box">31</button>
+                <button class="calendar-box">Nov 1</button>
                 <!-- Days for Week 2 -->
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
-                <button class="calendar-box">x</button>
+                <button class="calendar-box">2</button>
+                <button class="calendar-box">3</button>
+                <button class="calendar-box">4</button>
+                <button class="calendar-box">5</button>
+                <button class="calendar-box">6</button>
+                <button class="calendar-box">7</button>
+                <button class="calendar-box">8</button>
             </div>
         </div>
     </div>

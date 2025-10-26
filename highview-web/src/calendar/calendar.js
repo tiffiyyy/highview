@@ -8,6 +8,7 @@ currDay = date.getDate();
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", 
                 "September", "October", "November", "December"];
 
+
 const renderCalendar = () => {
     let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay(), 
     lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate(), 

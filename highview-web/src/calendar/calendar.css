@@ -5,6 +5,12 @@
     padding-top: 20px;
 }
 
+header{
+    border: none;
+    width: 1110px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+}
+
 h1 {
     color: #000;
     font-family: Inter;
@@ -13,17 +19,27 @@ h1 {
     font-weight: 600;
     line-height: 150%; /* 30px */
     letter-spacing: -0.2px;
+    margin-left: 15px;
+
+}
+
+.current-date{
+    color: #000;
+    font-family: Inter;
+    font-size: 15px;
+    margin-left: 15px;
+
 }
 
 .calendar {
-    width: 1080px;
+    margin-left: 18px;
+    width: 1110px;
     height: 450px;
     flex-shrink: 0;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
     background: #FFF;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
-    padding-left: 10px;
 }
 
 .calendar-grid {
@@ -34,17 +50,27 @@ h1 {
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap; 
-    margin-left: 5px;
+    margin-left: 15px;
 }
 
 .calendar-box {
     width: 150px;
     height: 150px;
     flex-shrink: 0;
-    fill: rgba(226, 243, 248, 0.45);
+    fill: #d4f5ff;
+    display: flex; 
     flex-wrap: wrap; 
     justify-content: flex-start; 
     align-items: flex-start;
+    padding: 10px;
+    border: 2px solid #eef6ff;  /* Blue border */
+    background-color: white;
+    color: #000000;
+}
+
+
+.calendar-box.today{
+    background-color: #eef6ff;
 }
 
 .weekday {
