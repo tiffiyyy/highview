@@ -418,3 +418,14 @@ h3 {
     font-size: 14px;
     font-weight: 400;
 }
+
+.eventTitle {
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 12px;
+}

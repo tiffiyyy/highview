@@ -1,0 +1,6 @@
+.events-page {
+    display: flex; 
+    align-items: flex-start;
+    margin-left: 220px;
+    padding-top: 20px;
+}
