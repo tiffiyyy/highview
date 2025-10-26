@@ -1,5 +1,5 @@
-## Lumera
-# empowering change. inspiring growth.
+# Lumera
+## empowering change. inspiring growth.
 
 ## Inspiration
 A lack of motivation is thievery for time. At Lumera, we give it back and offer even more to our students.
