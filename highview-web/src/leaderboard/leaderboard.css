@@ -2,7 +2,29 @@
     display: flex; 
     align-items: flex-start;
     margin-left: 220px;
-    padding-top: 20px;
+    padding-top: 40px;
+}
+
+.sticky-header {
+    position: fixed;
+    top: 0;
+    width: 1300px;
+
+    /* push header to the right so it doesn't sit under the sidebar */
+    left: 191px;          /* SAME as .sidebar width */
+    right: 0;
+
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    background-color: #ffffff;
+    border-bottom: 1px solid #E0E0E0;
+
+    padding-left: 40px;
+    margin: 0;
+    z-index: 10;
 }
 
 .searchblock{
