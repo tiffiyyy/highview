@@ -21,9 +21,9 @@
             </div>
         </div>
         <div class="sorting-bar">
-            <button class="selected">Weekly</button>
-            <button class="not-selected">Monthly</button>
-            <button class="not-selected">All Time</button>
+            <button id="btnWeekly"  class="not-selected" type="button">Weekly</button>
+            <button id="btnMonthly" class="not-selected" type="button">Monthly</button>
+            <button id="btnAll"     class="selected"     type="button">All Time</button>
         </div>
         <div class="placements-top3">
             <div class="top3">
@@ -118,6 +118,24 @@
                 .then(html => {
                     document.getElementById('sidebar-container').innerHTML = html;
                 });
+        </script>
+        <script>
+            const buttons = document.querySelectorAll('.sorting-bar button');
+          
+            buttons.forEach(btn => {
+              btn.addEventListener('click', () => {
+                // Remove 'selected' class from all buttons
+                buttons.forEach(b => b.classList.remove('selected'));
+                buttons.forEach(b => b.classList.add('not-selected'));
+          
+                // Add 'selected' to the clicked button
+                btn.classList.remove('not-selected');
+                btn.classList.add('selected');
+          
+                // Optional: do something when button is clicked
+                console.log('Selected:', btn.textContent);
+              });
+            });
         </script>
     </body>
 </html>
