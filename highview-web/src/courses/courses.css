@@ -168,6 +168,9 @@ header {
     z-index: 10;
 }
 
+.sticky-header {
+    font-size: 24px;
+}
 
 .icon {
     width: 24px;
