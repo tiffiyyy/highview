@@ -5,9 +5,16 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import response, now_iso
 
-dynamodb = boto3.client('dynamodb', region_name='us-east-1')
+dynamodb = boto3.client(
+        'dynamodb',
+        region_name='us-east-1',
+        aws_access_key_id=os.getenv("key_id"),
+        aws_secret_access_key=os.getenv("access_key"))
 
-def deleteSession(session_type, session_id):
+def deleteSession(event, context):
+    # session_type, session_id
+    session_id = (event.get("pathParameters") or {}).get("session_id")
+    session_type = (event.get("pathParameters") or {}).get("session_type")
     try:
         # First check if the session exists
         get_response = dynamodb.get_item(

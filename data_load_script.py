@@ -1,7 +1,8 @@
 import boto3
-import uuid
+from lambdas.utils import make_student_id, normalize_email
 import csv
 from decimal import Decimal
+import uuid
 
 STUDENTS_TABLE = "Student"
 SESSIONS_TABLE = "Session"
@@ -12,14 +13,6 @@ STUDENTS_CSV = "dummyData/students.csv"
 ATTENDANCE_CSV = "dummyData/attendance.csv"
 BONUS_POINTS_CSV = "dummyData/bonus_points.csv"
 SESSIONS_CSV = "dummyData/sessions.csv"
-
-def normalize_email(email):
-    return (email or "").strip().lower()
-
-def make_student_id(first, last, email):
-    # First|Last|normalized_email
-    key = f"{(first or '').strip()}|{(last or '').strip()}|{normalize_email(email)}"
-    return str(uuid.uuid5(uuid.NAMESPACE_DNS, key))
 
 def to_decimal(x):
     # dynamoDB requires Decimal
@@ -59,7 +52,8 @@ def load_sessions(dynamodb):
     with open(SESSIONS_CSV, newline='', encoding='utf-8') as f:
         for r in csv.DictReader(f):
             items.append({
-                "session_id": r["session_id"],
+                "session_id": str(uuid.uuid4()),
+                # "session_id": r["session_id"],
                 "session_name": r["session_name"],
                 "session_type": r["session_type"],
                 "session_date": r["session_date"],

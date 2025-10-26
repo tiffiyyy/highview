@@ -1,6 +1,7 @@
 import json
 import datetime
 import boto3
+import uuid
 import os
 # Reduce info from api calls to necessary attributes
 
@@ -89,6 +90,14 @@ def path_params(event):
 
 # def query_params(event):
 #     return event.get("queryStringParameters") or {}
+
+def normalize_email(email):
+    return (email or "").strip().lower()
+
+def make_student_id(first, last, email):
+    # First|Last|normalized_email
+    key = f"{(first or '').strip()}|{(last or '').strip()}|{normalize_email(email)}"
+    return str(uuid.uuid5(uuid.NAMESPACE_DNS, key))
 
 def cors_headers():
     return {

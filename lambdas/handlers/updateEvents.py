@@ -2,10 +2,8 @@ import boto3
 import json
 import uuid
 import sys, os
-import base64
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import response, now_iso
-import qrcode # need to add this dependency?
 
 dynamodb = boto3.client(
         'dynamodb',
@@ -13,7 +11,7 @@ dynamodb = boto3.client(
         aws_access_key_id=os.getenv("key_id"),
         aws_secret_access_key=os.getenv("access_key"))
 
-def createSession(event, context):
+def handler(event, context):
     """
     Create a new session in the Session table
     Expected event body: {
@@ -35,15 +33,8 @@ def createSession(event, context):
         if field not in body:
             return response(400, {"error": f"Missing required field: {field}"})
     
-    # Generate a unique session ID
-    session_id = str(uuid.uuid4())
-
-    url = f"<url-here>?session_id={session_id}"
-    qr_img = qrcode.make(url)
-
-    # encode this to base 64 and store in tbl
-    with open(qr_img, "rb") as image_file:
-        qr_encoded = base64.b64encode(image_file.read()).decode('utf-8')
+    # retrieve session ID
+    session_id = body["session_id"]
     
     # Create the session item for DynamoDB
     session_item = {
@@ -54,8 +45,7 @@ def createSession(event, context):
         'session_description': {'S': body['session_description']},
         'session_location': {'S': body['session_location']},
         'session_time': {'S': body['session_time']},
-        'created_at': {'S': now_iso()},
-        'qr_img': {'B': qr_encoded}
+        'created_at': {'S': now_iso()}
     }
     
     # Put the item in the Session table

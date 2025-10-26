@@ -36,10 +36,10 @@ def handler(event, context):
     students_with_points.sort(key=lambda x: x['total_points'], reverse=True)
     
     # Return top 5 students
-    return students_with_points[:5]
+    return students_with_points[:10]
 
 
-def getBottomStudents(num_students):
+def getBottomStudents(event, context):
     # Scan the Student table to get all students
     response = dynamodb.scan(TableName="Student")
     
@@ -65,4 +65,4 @@ def getBottomStudents(num_students):
     students_with_points.sort(key=lambda x: x['total_points'], reverse=True)
     
     # Return bottom students (last num_students from the sorted list)
-    return students_with_points[-num_students:]
+    return students_with_points[-10:]
