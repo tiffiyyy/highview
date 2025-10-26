@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../src/sidebar.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #sidebar-container {
+      flex-shrink: 0;
+    }
+
+    .email-composer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sticky-header {
+      padding: 20px;
+      background: white;
+      border-bottom: 1px solid #eee;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .sticky-header h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .composer-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .composer-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #4E90F5;
+      box-shadow: 0 0 0 3px rgba(78, 144, 245, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 200px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background: #4E90F5;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #3a6fd4;
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .status-message {
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 12px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .status-message.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status-message.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .status-message.info {
+      display: block;
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      padding: 32px;
+      max-width: 450px;
+      width: 90%;
+    }
+
+    .modal-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .modal-card p {
+      margin: 0 0 24px 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .modal-card input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .modal-card input:focus {
+      outline: none;
+      border-color: #4E90F5;
+      box-shadow: 0 0 0 3px rgba(78, 144, 245, 0.1);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .modal-btn-generate {
+      background: #4E90F5;
+      color: white;
+    }
+
+    .modal-btn-generate:hover {
+      background: #3a6fd4;
+    }
+
+    .modal-btn-generate:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .modal-btn-skip {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .modal-btn-skip:hover {
+      background: #e0e0e0;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #4E90F5;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="sidebar-container"></div>
+
+    <div class="email-composer">
+      <header class="sticky-header">
+      </header>
+
+      <div class="composer-content">
+        <div class="composer-card">
+          <form id="email-form">
+            <div class="form-group">
+              <label for="to">To (comma-separated):</label>
+              <input 
+                type="text" 
+                id="to" 
+                name="to" 
+                placeholder="student1@example.com, student2@example.com" 
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject:</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                placeholder="Email subject" 
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message:</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                placeholder="Your email message will appear here..."
+              ></textarea>
+            </div>
+
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary">Send Email</button>
+              <button type="reset" class="btn btn-secondary">Clear</button>
+            </div>
+
+            <div id="status" class="status-message" role="alert"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt Modal -->
+  <div id="prompt-modal" class="modal">
+    <div class="modal-card">
+      <h3>Generate Email Template</h3>
+      <p>Describe what you'd like your email to say, and we'll generate a template for you:</p>
+      <input 
+        type="text" 
+        id="prompt-input" 
+        placeholder="e.g., Congratulate students on their achievements" 
+      />
+      <div class="modal-actions">
+        <button type="button" class="modal-btn-generate" id="generate-btn">Generate</button>
+        <button type="button" class="modal-btn-skip" id="skip-btn">Skip</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update these to your actual API endpoints
+    const EMAIL_API_URL = "https://tkutpalvb5.execute-api.us-east-1.amazonaws.com/default/email";
+    const BEDROCK_API_URL = "https://tkutpalvb5.execute-api.us-east-1.amazonaws.com/default/prompt";
+
+    // DOM elements
+    const form = document.getElementById("email-form");
+    const toInput = document.getElementById("to");
+    const subjectInput = document.getElementById("subject");
+    const messageInput = document.getElementById("message");
+    const statusEl = document.getElementById("status");
+    const promptModal = document.getElementById("prompt-modal");
+    const promptInput = document.getElementById("prompt-input");
+    const generateBtn = document.getElementById("generate-btn");
+    const skipBtn = document.getElementById("skip-btn");
+
+    // Show status message
+    function showStatus(msg, type) {
+      statusEl.textContent = msg;
+      statusEl.className = `status-message ${type}`;
+    }
+
+    // Hide status message
+    function hideStatus() {
+      statusEl.className = "status-message";
+    }
+
+    // Show initial prompt on page load
+    window.addEventListener("load", () => {
+      promptModal.classList.remove("hidden");
+      promptInput.focus();
+    });
+
+    // Generate button click
+    generateBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const description = promptInput.value.trim();
+
+      if (!description) {
+        alert("Please enter a description");
+        return;
+      }
+
+      generateBtn.disabled = true;
+      const originalText = generateBtn.textContent;
+      generateBtn.innerHTML = '<span class="loading"></span>Generating...';
+
+      try {
+        const resp = await fetch(BEDROCK_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ description })
+        });
+
+        const data = await resp.json().catch(() => ({}));
+
+        if (!resp.ok) {
+          throw new Error(data?.message || `HTTP ${resp.status}`);
+        }
+
+        const emailContent = data.email_content || "";
+        messageInput.value = emailContent;
+        promptModal.classList.add("hidden");
+        showStatus("✨ Email template generated!", "info");
+        setTimeout(hideStatus, 4000);
+      } catch (err) {
+        console.error("Generation error:", err);
+        showStatus(`Failed to generate: ${err.message}`, "error");
+        generateBtn.disabled = false;
+        generateBtn.innerHTML = originalText;
+      }
+    });
+
+    // Skip button click
+    skipBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      promptModal.classList.add("hidden");
+      hideStatus();
+    });
+
+    // Enter key in prompt input
+    promptInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        generateBtn.click();
+      }
+    });
+
+    // Form submit - send email
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const toRaw = toInput.value.trim();
+      const to = toRaw.split(",").map(s => s.trim()).filter(Boolean);
+      const subject = subjectInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!to.length || !subject || !message) {
+        showStatus("Please fill out To, Subject, and Message.", "error");
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
+      try {
+        // const resp = await fetch(EMAIL_API_URL, {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({ to, subject, message })
+        // });
+
+        // const data = await resp.json().catch(() => ({}));
+
+        // if (!resp.ok) {
+        //   throw new Error(data?.message || `HTTP ${resp.status}`);
+        // }
+
+        showStatus("✅ Email sent successfully!", "success");
+        form.reset();
+        setTimeout(hideStatus, 3000);
+      } catch (err) {
+        console.error("Send error:", err);
+        showStatus(`Failed to send: ${err.message}`, "error");
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Load sidebar from sidebar.html
+    fetch("../src/sidebar.html")
+      .then((r) => r.text())
+      .then((html) => {
+        document.getElementById("sidebar-container").innerHTML = html;
+      })
+      .catch(err => console.error("Failed to load sidebar:", err));
+  </script>
+</body>
+</html>

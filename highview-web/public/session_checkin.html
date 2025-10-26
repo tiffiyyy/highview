@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Check-In</title>
+  </head>
+  <body>
+    <h1>Event Check-In</h1>
+
+    <form id="checkinForm">
+      <input type="hidden" id="session_id" name="session_id" />
+
+      <label>First name
+        <input id="first_name" name="first_name" required />
+      </label>
+      <br />
+
+      <label>Last name
+        <input id="last_name" name="last_name" required />
+      </label>
+      <br />
+
+      <label>Email
+        <input id="email" name="email" type="email" required />
+      </label>
+      <br />
+
+      <button type="submit">Check in</button>
+    </form>
+
+    <pre id="msg"></pre>
+
+    <script>
+      // ===== CONFIG: set your API Gateway base URL (no trailing slash) =====
+      const API_BASE = "https://tkutpalvb5.execute-api.us-east-1.amazonaws.com/default"; // e.g. https://abc123.execute-api.us-east-1.amazonaws.com/prod
+      const CHECKIN_PATH = "/checkin"; // POST route
+      // https://attend.yourorg.com/checkin.html?session_id=SESS_001
+
+      const qs = new URLSearchParams(window.location.search);
+      const sessionId = qs.get("session_id") || qs.get("sessionId"); // support either key
+
+      const form = document.getElementById("checkinForm");
+      const msg = document.getElementById("msg");
+      const sessionInput = document.getElementById("session_id");
+
+      function setMsg(text) { msg.textContent = text; }
+
+      // initialize session from URL
+      if (!sessionId) {
+        setMsg("Missing session_id in URL (e.g. ?session_id=ABC123).");
+        form.querySelector("button[type=submit]").disabled = true;
+      } else {
+        sessionInput.value = sessionId;
+        setMsg("Session: " + sessionId);
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!sessionId) return;
+
+        const payload = {
+          session_id: sessionId,
+          first_name: document.getElementById("first_name").value.trim(),
+          last_name:  document.getElementById("last_name").value.trim(),
+          email:      document.getElementById("email").value.trim().toLowerCase(),
+        };
+
+        if (!payload.first_name || !payload.last_name || !payload.email) {
+          setMsg("Please fill all fields.");
+          return;
+        }
+
+        try {
+          const resp = await fetch(API_BASE + CHECKIN_PATH, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await resp.json().catch(() => ({}));
+          if (!resp.ok) throw new Error(data.message || resp.statusText);
+
+          setMsg("✅ Checked in. " + (data.message || ""));
+          // optionally disable inputs:
+          // Array.from(form.elements).forEach(el => el.disabled = true);
+        } catch (err) {
+          setMsg("❌ " + (err.message || "Check-in failed"));
+        }
+      });
+    </script>
+  </body>
+</html>
