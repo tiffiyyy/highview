@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document Title</title>
+        <link rel="stylesheet" href="../sidebar.css">
+        <link rel="stylesheet" href="events.css">
+    </head>
+    <body>
+        <div id="sidebar-container"></div>
+        <form type="text">Event Name</form>
+        <select id="Tags">
+            <selected>----</selected>
+            <option>Mentor Sessions</option>
+            <option>Career Summits</option>
+            <option>Orientation</option>
+            <option>Professional Dev</option>
+            <option>Field Day</option>
+        </select>
+        <form type="text"></form>
+        <script>
+            fetch('../sidebar.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('sidebar-container').innerHTML = html;
+                });
+        </script>
+    </body>
+</html>
