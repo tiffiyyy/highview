@@ -31,14 +31,12 @@ function unmarshalAttrMap(m = {}) {
     attendance_points: getN('attendance_points'),
     bonus_points: getN('bonus_points'),
     updated_at: getS('updated_at'),
-    // if your table ever stores this
     missed_sessions: getN('missed_sessions'),
   };
 }
 
 function looksLikeAttrMap(obj) {
   if (!obj || typeof obj !== 'object') return false;
-  // crude check: any value is an object with S/N/BOOL
   return Object.values(obj).some(
     (v) => v && typeof v === 'object' && (('S' in v) || ('N' in v) || ('BOOL' in v))
   );
@@ -56,10 +54,9 @@ function normalizeStudent(s = {}) {
     total_points: num(base.total_points ?? base.points),
     attendance_points: num(base.attendance_points ?? base.attendance),
     bonus_points: num(base.bonus_points ?? base.bonus),
-    missed_sessions: num(base.missed_sessions),  // <-- keep it
+    missed_sessions: num(base.missed_sessions),
     updated_at: base.updated_at ?? base.updated ?? null,
 
-    // Keep any extra fields your backend might add in the future:
     ...Object.fromEntries(
       Object.entries(base).filter(([k]) =>
         ![
@@ -94,7 +91,6 @@ export async function getLeaderboards() {
 }
 
 export async function searchStudents(query) {
-  // NOTE: If your backend uses body { input_name }, you might need to POST instead.
   const url = `${API_BASE_URL}/search?q=${encodeURIComponent(query)}`;
   console.log('Searching students with query:', query, '→', url);
   const res = await fetch(url);
@@ -122,29 +118,18 @@ export async function createEvent(eventData) {
  * Get all events/sessions from backend
  * @returns {Promise<Array>} Array of event/session data
  */
-async function getEvents() {
-    try {
-        console.log('Fetching events from:', `${API_BASE_URL}/events`);
-        const response = await fetch(`${API_BASE_URL}/events`);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        console.log('Received events data:', data);
-        
-        // The API returns data wrapped in a body object, unwrap it
-        if (data && typeof data === 'object' && 'body' in data) {
-            const unwrapped = typeof data.body === 'string' ? JSON.parse(data.body) : data.body;
-            return unwrapped.sessions || [];
-        }
-        
-        return data.sessions || [];
-    } catch (error) {
-        console.error('Error fetching events:', error);
-        throw error;
-    }
+export async function getEvents() {
+  try {
+    const url = `${API_BASE_URL}/events`;
+    console.log('Fetching events from:', url);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    const data = await res.json();
+    console.log('Received events data:', data);
+    const unwrapped = unwrapBody(data);
+    return unwrapped.sessions || [];
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error;
+  }
 }
-
-export { getLeaderboards, searchStudents, createEvent, getEvents };
