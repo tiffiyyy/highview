@@ -12,6 +12,27 @@
         <header class="sticky-header">
             <h2>Home</h2>
         </header>
+        <div class="calendar-page">
+            <div id="sidebar-container"></div>
+            <!-- Calendar Event -->
+            <div class="calendar">
+                <header> 
+                    <h1>HighView General Calendar</h1>
+                </header>
+                    <h2 class="current-date"></h2> 
+                <div class="calendar-grid">
+                    <!-- Weekday Headers -->
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                    <div class="weekday">Sun</div>
+                    <div id="calendar-days"></div>
+                </div>
+            </div>
+        </div>
         <a href="createEvents.html" style="margin-left: 200px">Create Events</a>
         <a href="updateEvents.html" style="margin-left: 200px">Update Events</a>
         <script>
@@ -21,5 +42,6 @@
                     document.getElementById('sidebar-container').innerHTML = html;
                 });
         </script>
+        <script src="../src/home/home.js"></script> 
     </body>
 </html>
