@@ -1,99 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document Title</title>
-        <link rel="stylesheet" href="../src/sidebar.css">
-        <link rel="stylesheet" href="../src/profiles/profiles.css">
-    </head>
-    <body>
-        <div id="sidebar-container"></div>
-        <header class="sticky-header">
-            <h2>Profiles</h2>
-        </header>
-        <div class="profiles-page">
-            <div class="searchblock">
-                <svg class="search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M20.9999 21.0004L16.6499 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <form action="/search" method="get">
-                    <input class="search" type="search" name="q" placeholder="Search...">
-                </form>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profiles</title>
+
+    <!-- your existing CSS files -->
+    <link rel="stylesheet" href="../src/sidebar.css" />
+    <link rel="stylesheet" href="../src/profiles/profiles.css" />
+
+    <!-- tiny local helpers -->
+    <style>
+      .hidden { display: none !important; }
+      .results { margin-top: 8px; max-height: 320px; overflow: auto; }
+      .result-item { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; }
+      .result-item:hover { background:#f4f4f4; }
+      .pill { font-size: 12px; padding:2px 8px; border-radius:999px; background:#eee; }
+      .muted { color:#666; }
+    </style>
+  </head>
+
+  <body>
+    <div id="sidebar-container"></div>
+
+    <header class="sticky-header"></header>
+
+    <div class="profiles-page">
+      <div class="searchblock">
+        <svg class="search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20.9999 21.0004L16.6499 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <form id="searchForm" action="/search" method="get" autocomplete="off">
+          <input class="search" id="q" type="search" name="q" placeholder="Search by name, email, or company…" />
+        </form>
+      </div>
+
+      <!-- live results -->
+      <div id="status" class="muted" style="margin-top:6px;"></div>
+      <div id="results" class="results"></div>
+    </div>
+
+    <div class="sorting-bar">
+      <button id="btnWeekly"  class="not-selected" type="button">Weekly</button>
+      <button id="btnMonthly" class="not-selected" type="button">Monthly</button>
+      <button id="btnAll"     class="selected"     type="button">All Time</button>
+    </div>
+
+    <!-- Profile card -->
+    <div class="profile-square" id="profileCard">
+      <div class="top1">
+        <div class="avatar-pfp1"></div>
+        <svg class="avatar" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 42 42" fill="none" aria-hidden="true">
+          <circle cx="21" cy="21" r="21" fill="#4E90F5"/>
+        </svg>
+        <p class="ranking1" id="rank">Leaderboard Rank: —</p>
+      </div>
+      <div class="info">
+        <h1 id="name">Name</h1>
+        <p id="email" class="muted">—</p>
+        <p id="company" class="muted">—</p>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <span class="pill" id="points">0 total points</span>
+          <span class="pill hidden" id="attn"></span>
+          <span class="pill hidden" id="bonus"></span>
+          <!-- Optional: show only if > 0 -->
+          <span class="pill hidden" id="missed"></span>
         </div>
-        <div class="sorting-bar">
-            <button class="selected">Weekly</button>
-            <button class="not-selected">Monthly</button>
-            <button class="not-selected">All Time</button>
-        </div>
-        <div class="profile-square">
-            <div class="top1">
-                <div class="avatar-pfp1"></div>
-                <svg class="avatar" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 42 42" fill="none">
-                    <circle cx="21" cy="21" r="21" fill="#4E90F5"/>
-                </svg>
-                <p class="ranking1">1</p>
+        <p id="updated" class="muted" style="margin-top:8px; font-size:12px;">Updated —</p>
+      </div>
+    </div>
+
+    <script type="module">
+      import { getLeaderboards } from '/src/api.js';
+
+      // ===== DOM =====
+      const $form    = document.getElementById("searchForm");
+      const $q       = document.getElementById("q");
+      const $results = document.getElementById("results");
+      const $status  = document.getElementById("status");
+
+      const $name    = document.getElementById("name");
+      const $email   = document.getElementById("email");
+      const $company = document.getElementById("company");
+      const $points  = document.getElementById("points");
+      const $attn    = document.getElementById("attn");
+      const $bonus   = document.getElementById("bonus");
+      const $missed  = document.getElementById("missed");
+      const $updated = document.getElementById("updated");
+      const $rank    = document.getElementById("rank");
+
+      const $btnWeekly  = document.getElementById("btnWeekly");
+      const $btnMonthly = document.getElementById("btnMonthly");
+      const $btnAll     = document.getElementById("btnAll");
+
+      // ===== State =====
+      let ALL = [];   // full array from API (we keep everything)
+      let VIEW = [];  // filtered/sorted
+
+      // ===== helpers =====
+      const RESULTS_COLLAPSE_ON_SELECT = true;
+      const setStatus = (t)=> { $status.textContent = t || ""; };
+      const normalize = (s)=> (s || "").toString().trim().toLowerCase();
+      const debounce  = (fn, ms=200)=> { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
+      const esc       = (s)=> String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+      function showResults(){ $results.classList.remove("hidden"); $status.classList.remove("hidden"); }
+      function hideResults(){ $results.classList.add("hidden"); $status.classList.add("hidden"); }
+
+      // optional local pass-through (api.js already normalizes)
+      function normalizeStudents(arr){
+        return (arr || []).map(s => ({
+          ...s,
+          total_points:      Number(s.total_points)      || 0,
+          attendance_points: Number(s.attendance_points) || 0,
+          bonus_points:      Number(s.bonus_points)      || 0,
+          missed_sessions:   Number(s.missed_sessions)   || 0,
+        }));
+      }
+
+      function filterStudents(query){
+        const q = normalize(query);
+        if(!q) return [...ALL];
+        const parts = q.split(/\s+/).filter(Boolean);
+        return ALL.filter(st => {
+          const first = normalize(st.first);
+          const last  = normalize(st.last);
+          const full  = (first + " " + last).trim();
+          const email = normalize(st.email);
+          const comp  = normalize(st.company);
+          return parts.every(p =>
+            first.includes(p) || last.includes(p) || full.includes(p) ||
+            email.includes(p) || comp.includes(p)
+          );
+        });
+      }
+
+      function setPillValue($el, value, singularText, pluralText = singularText + 's') {
+        const n = Number(value) || 0;
+        if (n > 0) {
+          $el.textContent = `${n} ${n === 1 ? singularText : pluralText}`;
+          $el.classList.remove('hidden');
+        } else {
+          $el.textContent = '';
+          $el.classList.add('hidden');
+        }
+      }
+
+      function renderResults(list){
+        showResults();
+        $results.innerHTML = "";
+        if(!list.length){ setStatus("No matches"); return; }
+        setStatus(`${list.length} result${list.length===1?"":"s"}`);
+
+        list.forEach((st, idx) => {
+          const div = document.createElement("div");
+          div.className = "result-item";
+          div.setAttribute("role","button");
+          div.setAttribute("tabindex","0");
+
+          // ⬇️ Points pill removed from the right side
+          div.innerHTML = `
+            <svg width="28" height="28" viewBox="0 0 42 42"><circle cx="21" cy="21" r="21" fill="#4E90F5"></circle></svg>
+            <div style="flex:1; min-width:0;">
+              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                <strong>${esc(st.last || "—")}, ${esc(st.first || "—")}</strong>
+              </div>
+              <div class="muted" style="font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                ${esc(st.email || "")}
+              </div>
             </div>
-            <div class="info">
-                <h1>Helena Hills</h1>
-                <h6>Grade 12</h6>
-                <h6>1800 points</h6>
-            </div>
-        </div>
-        <div class="studentlist">
-            <div class="studentrow">
-                <div class="student">
-                    <span class="student-name">1</span>
-                    <span class="student-name">Event Name</span>
-                </div>
-                <div class="attendance-group">
-                    <button class="att-cell">Date</button>
-                </div>
-            </div>
-            <div class="studentrow">
-                <div class="student">
-                    <span class="student-name">2</span>
-                    <span class="student-name">Event Name</span>
-                </div>
-                <div class="attendance-group">
-                    <button class="att-cell">Date</button>
-                </div>
-            </div>
-            <div class="studentrow">
-                <div class="student">
-                    <span class="student-name">3</span>
-                    <span class="student-name">Event Name</span>
-                </div>
-                <div class="attendance-group">
-                    <button class="att-cell">Date</button>
-                </div>
-            </div>
-            <div class="studentrow">
-                <div class="student">
-                    <span class="student-name">4</span>
-                    <span class="student-name">Event Name</span>
-                </div>
-                <div class="attendance-group">
-                    <button class="att-cell">Date</button>
-                </div>
-            </div>
-            <div class="studentrow">
-                <div class="student">
-                    <span class="student-name">6</span>
-                    <span class="student-name">Event Name</span>
-                </div>
-                <div class="attendance-group">
-                    <button class="att-cell">Date</button>
-                </div>
-            </div>
-        <script>
-            fetch('../src/sidebar.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('sidebar-container').innerHTML = html;
-                });
-        </script>
-    </body>
+          `;
+
+          const open = () => {
+            loadProfile(st, idx+1);
+            // select highlight
+            [...$results.children].forEach(el => el.classList.remove("selected"));
+            div.classList.add("selected");
+            // clear query + collapse results panel
+            if (RESULTS_COLLAPSE_ON_SELECT) {
+              $q.value = "";
+              hideResults();
+            }
+          };
+
+          div.addEventListener("click", open);
+          div.addEventListener("keydown", e => { if(e.key==="Enter" || e.key===" ") { e.preventDefault(); open(); } });
+
+          $results.appendChild(div);
+        });
+      }
+
+      function loadProfile(st, rank){
+        $name.textContent    = `${st.last || "—"}, ${st.first || "—"}`;
+        $email.textContent   = st.email || "—";
+        $company.textContent = st.company || "—";
+
+        const total = Number(st.total_points) || 0;
+        $points.textContent  = `${total} total point${total === 1 ? '' : 's'}`;
+        $points.classList.remove('hidden');
+
+        // Only show these when > 0
+        setPillValue($attn,  st.attendance_points, 'attendance point');
+        setPillValue($bonus, st.bonus_points,      'bonus point');
+        setPillValue($missed, st.missed_sessions,  'missed session');
+
+        $updated.textContent = st.updated_at ? `Updated ${st.updated_at}` : "Updated —";
+        $rank.textContent    = `Leaderboard Rank: ${rank ?? "—"}`;
+      }
+
+      function setSortMode(btn){
+        [$btnWeekly,$btnMonthly,$btnAll].forEach(b => { b.classList.remove("selected"); b.classList.add("not-selected"); });
+        btn.classList.add("selected"); btn.classList.remove("not-selected");
+        VIEW.sort((a,b)=> (b.total_points ?? 0) - (a.total_points ?? 0));
+        renderResults(VIEW);
+      }
+
+      // ===== events =====
+      $form.addEventListener("submit", e => e.preventDefault());
+      $btnWeekly.addEventListener("click",  () => setSortMode($btnWeekly));
+      $btnMonthly.addEventListener("click", () => setSortMode($btnMonthly));
+      $btnAll.addEventListener("click",     () => setSortMode($btnAll));
+
+      $q.addEventListener("input", debounce(() => {
+        showResults();
+        VIEW = filterStudents($q.value).sort((a,b)=> (b.total_points ?? 0) - (a.total_points ?? 0));
+        renderResults(VIEW);
+      }, 180));
+
+      // Esc clears and hides
+      $q.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          $q.value = "";
+          hideResults();
+          setStatus("");
+        }
+      });
+
+      // Click outside → hide results
+      document.addEventListener("click", (e) => {
+        const inSearch  = e.target.closest(".searchblock");
+        const inResults = e.target.closest("#results");
+        if (!inSearch && !inResults) hideResults();
+      });
+
+      // Sidebar include
+      fetch('/src/sidebar.html').then(r => r.text()).then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+      });
+
+      // ===== bootstrap =====
+      async function bootstrap(){
+        try{
+          setStatus("Loading students…");
+          const raw = await getLeaderboards();
+          // keep EVERYTHING in memory (ALL)
+          ALL  = normalizeStudents(raw);
+          VIEW = [...ALL].sort((a,b)=> (b.total_points ?? 0) - (a.total_points ?? 0));
+          renderResults(VIEW);
+          setStatus(`Loaded ${ALL.length} students`);
+          if(ALL.length) loadProfile(ALL[0], 1);
+        }catch(err){
+          console.error("Failed to load students:", err);
+          setStatus("Error loading students: " + (err.message || "failed"));
+        }
+      }
+      bootstrap();
+    </script>
+  </body>
 </html>

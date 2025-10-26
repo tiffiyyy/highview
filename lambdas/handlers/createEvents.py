@@ -2,7 +2,7 @@ import boto3
 import json
 import uuid
 import sys, os
-import base64
+from io import BytesIO
 import qrcode
 import qrcode.image.svg as qsvg
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,9 +27,7 @@ def createSession(event, context):
     # Generate a unique session ID
     session_id = str(uuid.uuid4())
 
-    url = f"<url-here>?session_id={session_id}"
-
-    from io import BytesIO
+    url = f"http://localhost:5173/session_checkin.html?session_id={session_id}"
 
     qr_img = qrcode.make(url, image_factory=qsvg.SvgImage)
     buffer = BytesIO()
@@ -72,16 +70,16 @@ def createSession(event, context):
         }
     })
 
-if __name__ == "__main__":
-    test_event = {
-        "body": json.dumps({
-            "session_name": "Intro to AWS",
-            "session_type": "Workshop",
-            "session_date": "2025-11-01",
-            "session_description": "Hands-on AWS workshop for students",
-            "session_location": "Room 201",
-            "session_time": "10:00 AM",
-            "email": "mentor@example.com"
-        })
-    }
-    result = createSession(test_event, None)
+# if __name__ == "__main__":
+#     test_event = {
+#         "body": json.dumps({
+#             "session_name": "Intro to AWS",
+#             "session_type": "Workshop",
+#             "session_date": "2025-11-01",
+#             "session_description": "Hands-on AWS workshop for students",
+#             "session_location": "Room 201",
+#             "session_time": "10:00 AM",
+#             "email": "mentor@example.com"
+#         })
+#     }
+#     result = createSession(test_event, None)

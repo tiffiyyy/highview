@@ -1,232 +1,184 @@
-import { getLeaderboards } from '../api.js';
+// src/leaderboard.js
+import { getLeaderboards } from '/src/api.js';
 
-// Store all students data for searching
-let allStudents = [];
+// ===== State (keep EVERYTHING here) =====
+let ALL = [];               // full normalized array from API
 let dropdownVisible = false;
 
-/**
- * Populate the top 3 leaderboard cards with data
- * @param {Array} students - Sorted array of students (highest points first)
- */
+// Expose for quick debugging (optional)
+window.ALL_STUDENTS = () => ALL;
+
+// -------- Helpers --------
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const norm = (s) => (s || '').toString().trim().toLowerCase();
+
+// -------- Populate top 3 cards --------
 function populateLeaderboard(students) {
-    if (!students || students.length === 0) {
-        console.log('No students found');
-        document.querySelector('.top1-name').textContent = 'No Data';
-        document.querySelector('.top2 .top23-name').textContent = 'No Data';
-        document.querySelector('.top3 .top23-name').textContent = 'No Data';
-        return;
+  const setCard = (rootSel, student) => {
+    const root  = document.querySelector(rootSel);
+    if (!root) return;
+    const nameEl   = root.querySelector(rootSel === '.top1' ? '.top1-name' : '.top23-name');
+    const pointsEl = root.querySelector('.points');
+
+    if (!student) {
+      if (nameEl) nameEl.textContent = 'No Data';
+      if (pointsEl) pointsEl.textContent = '—';
+      return;
     }
 
-    // Get top 3 students
-    const top1 = students[0];
-    const top2 = students[1];
-    const top3 = students[2];
+    if (nameEl)   nameEl.textContent   = `${student.first ?? ''} ${student.last ?? ''}`.trim() || '—';
+    if (pointsEl) pointsEl.textContent = `${student.total_points ?? 0} pts`;
 
-    // Update 1st place
-    if (top1) {
-        const name1 = document.querySelector('.top1-name');
-        const points1 = document.querySelector('.top1 .points');
-        if (name1) name1.textContent = `${top1.first} ${top1.last}`;
-        if (points1) points1.textContent = `${top1.total_points} pts`;
-        console.log('Updated 1st place:', top1.first, top1.last, top1.total_points);
-    }
+    // If you want to show attendance/bonus on cards (optional):
+    // const badge = root.querySelector('.badge');
+    // if (badge) badge.textContent = `${student.attendance_points ?? 0}A / ${student.bonus_points ?? 0}B`;
+  };
 
-    // Update 2nd place
-    if (top2) {
-        const name2 = document.querySelector('.top2 .top23-name');
-        const points2 = document.querySelector('.top2 .points');
-        if (name2) name2.textContent = `${top2.first} ${top2.last}`;
-        if (points2) points2.textContent = `${top2.total_points} pts`;
-        console.log('Updated 2nd place:', top2.first, top2.last, top2.total_points);
-    }
+  if (!Array.isArray(students) || students.length === 0) {
+    setCard('.top1', null);
+    setCard('.top2', null);
+    setCard('.top3', null);
+    return;
+  }
 
-    // Update 3rd place
-    if (top3) {
-        const name3 = document.querySelector('.top3 .top23-name');
-        const points3 = document.querySelector('.top3 .points');
-        if (name3) name3.textContent = `${top3.first} ${top3.last}`;
-        if (points3) points3.textContent = `${top3.total_points} pts`;
-        console.log('Updated 3rd place:', top3.first, top3.last, top3.total_points);
-    }
+  setCard('.top1', students[0] || null);
+  setCard('.top2', students[1] || null);
+  setCard('.top3', students[2] || null);
 }
 
-/**
- * Search students by name (client-side)
- * @param {string} query - Search query
- * @returns {Array} Filtered students
- */
+// -------- Client-side search over ALL --------
 function searchStudentsByName(query) {
-    if (!query || query.trim() === '') {
-        return allStudents;
-    }
-    
-    const searchTerm = query.toLowerCase().trim();
-    const segments = searchTerm.split(' ');
-    
-    return allStudents.filter(student => {
-        const first = student.first.toLowerCase();
-        const last = student.last.toLowerCase();
-        const fullName = `${first} ${last}`;
-        
-        // Check if any segment matches first or last name
-        return segments.some(segment => 
-            first.includes(segment) || 
-            last.includes(segment) || 
-            fullName.includes(segment)
-        );
-    });
+  const q = norm(query);
+  if (!q) return [...ALL];
+  const parts = q.split(/\s+/).filter(Boolean);
+  return ALL.filter(st => {
+    const first = norm(st.first);
+    const last  = norm(st.last);
+    const full  = `${first} ${last}`.trim();
+    const email = norm(st.email);
+    const comp  = norm(st.company);
+    return parts.every(p =>
+      first.includes(p) || last.includes(p) || full.includes(p) ||
+      email.includes(p) || comp.includes(p)
+    );
+  });
 }
 
-/**
- * Initialize leaderboard page - fetch and display data
- */
-async function initLeaderboard() {
-    try {
-        console.log('Initializing leaderboard...');
-        
-        // Fetch leaderboard data from backend
-        const students = await getLeaderboards();
-        
-        // Store all students for searching
-        allStudents = students;
-        
-        console.log('Successfully loaded leaderboard data:', students);
-        
-        // Populate the UI
-        populateLeaderboard(students);
-        
-    } catch (error) {
-        console.error('Failed to load leaderboard:', error);
-        // Show error to user
-        const errorMsg = `Failed to load leaderboard data: ${error.message}`;
-        console.error(errorMsg);
-        alert(errorMsg);
-    }
-}
-
-/**
- * Setup search functionality
- */
-function setupSearch() {
-    const searchForm = document.querySelector('.searchblock form');
-    const searchInput = document.querySelector('.searchblock input[type="search"]');
-    
-    if (!searchForm || !searchInput) {
-        console.error('Search elements not found');
-        return;
-    }
-    
-    // Create dropdown container
-    const dropdownContainer = document.createElement('div');
-    dropdownContainer.className = 'search-dropdown';
-    dropdownContainer.style.display = 'none';
-    searchForm.appendChild(dropdownContainer);
-    
-    // Show dropdown on input
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim();
-        
-        if (query.length > 0) {
-            const results = searchStudentsByName(query);
-            displaySearchDropdown(results, dropdownContainer, searchInput);
-        } else {
-            dropdownContainer.style.display = 'none';
-            dropdownVisible = false;
-        }
-    });
-    
-    // Handle form submission
-    searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const query = searchInput.value.trim();
-        
-        console.log('Searching for:', query);
-        
-        // Search through all students
-        const results = searchStudentsByName(query);
-        
-        console.log('Search results:', results);
-        
-        // Populate with search results (top 3)
-        populateLeaderboard(results);
-        
-        // Hide dropdown
-        dropdownContainer.style.display = 'none';
-        dropdownVisible = false;
-    });
-    
-    // Hide dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!searchForm.contains(e.target)) {
-            dropdownContainer.style.display = 'none';
-            dropdownVisible = false;
-        }
-    });
-    
-    // Handle dropdown item clicks
-    dropdownContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('dropdown-item')) {
-            searchInput.value = e.target.textContent;
-            const results = searchStudentsByName(searchInput.value);
-            populateLeaderboard(results);
-            dropdownContainer.style.display = 'none';
-            dropdownVisible = false;
-        }
-    });
-}
-
-/**
- * Display search dropdown with filtered results
- * @param {Array} results - Filtered student results
- * @param {HTMLElement} container - Dropdown container element
- * @param {HTMLElement} searchInput - Search input element
- */
+// -------- Dropdown rendering --------
 function displaySearchDropdown(results, container, searchInput) {
-    // Clear previous results
-    container.innerHTML = '';
-    
-    if (results.length === 0) {
-        container.innerHTML = '<div class="dropdown-item dropdown-no-results">No results found</div>';
-        container.style.display = 'block';
-        dropdownVisible = true;
-        positionDropdown(container, searchInput);
-        return;
-    }
-    
-    // Limit to first 10 results for better UX
-    const displayResults = results.slice(0, 10);
-    
-    displayResults.forEach(student => {
-        const item = document.createElement('div');
-        item.className = 'dropdown-item';
-        item.textContent = `${student.first} ${student.last}`;
-        container.appendChild(item);
-    });
-    
+  container.innerHTML = '';
+
+  if (!results.length) {
+    container.innerHTML = '<div class="dropdown-item dropdown-no-results">No results found</div>';
     container.style.display = 'block';
     dropdownVisible = true;
     positionDropdown(container, searchInput);
+    return;
+  }
+
+  // Show only first 10 in the dropdown for UX, but ALL remains intact in memory.
+  results.slice(0, 10).forEach(student => {
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.textContent = `${student.first} ${student.last}`;
+    container.appendChild(item);
+  });
+
+  container.style.display = 'block';
+  dropdownVisible = true;
+  positionDropdown(container, searchInput);
 }
 
-/**
- * Position the dropdown below the search input
- * @param {HTMLElement} dropdown - Dropdown element
- * @param {HTMLElement} input - Search input element
- */
 function positionDropdown(dropdown, input) {
-    const rect = input.getBoundingClientRect();
-    dropdown.style.width = `${rect.width}px`;
-    dropdown.style.top = `${rect.bottom + 4}px`;
-    dropdown.style.left = `${rect.left}px`;
+  const rect = input.getBoundingClientRect();
+  dropdown.style.width = `${rect.width}px`;
+  dropdown.style.top = `${rect.bottom + 4}px`;
+  dropdown.style.left = `${rect.left}px`;
 }
 
-// Wait for DOM to be ready, then initialize
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        initLeaderboard();
-        setupSearch();
-    });
-} else {
-    initLeaderboard();
+// -------- Setup search UI --------
+function setupSearch() {
+  const searchForm  = document.querySelector('.searchblock form');
+  const searchInput = document.querySelector('.searchblock input[type="search"]');
+  if (!searchForm || !searchInput) {
+    console.error('Search elements not found');
+    return;
+  }
+
+  // Create dropdown container
+  const dropdownContainer = document.createElement('div');
+  dropdownContainer.className = 'search-dropdown';
+  dropdownContainer.style.display = 'none';
+  searchForm.appendChild(dropdownContainer);
+
+  // Input → filter & show dropdown
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    if (query.length > 0) {
+      const results = searchStudentsByName(query);
+      displaySearchDropdown(results, dropdownContainer, searchInput);
+    } else {
+      dropdownContainer.style.display = 'none';
+      dropdownVisible = false;
+    }
+  });
+
+  // Submit → use results to repopulate top 3 section
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    const results = searchStudentsByName(query);
+    populateLeaderboard(results);
+    dropdownContainer.style.display = 'none';
+    dropdownVisible = false;
+  });
+
+  // Click outside → hide dropdown
+  document.addEventListener('click', (e) => {
+    if (!searchForm.contains(e.target)) {
+      dropdownContainer.style.display = 'none';
+      dropdownVisible = false;
+    }
+  });
+
+  // Click on an item → populate top 3 with filtered list
+  dropdownContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('dropdown-item')) {
+      searchInput.value = e.target.textContent;
+      const results = searchStudentsByName(searchInput.value);
+      populateLeaderboard(results);
+      dropdownContainer.style.display = 'none';
+      dropdownVisible = false;
+    }
+  });
+}
+
+// -------- Initial load --------
+export async function initLeaderboard() {
+  try {
+    console.log('Initializing leaderboard…');
+
+    // Use API helper so fields are normalized & preserved (attendance/bonus/missed)
+    const students = await getLeaderboards();
+
+    // Keep the ENTIRE array in memory (ALL)
+    ALL = Array.isArray(students) ? students : (students?.students || []);
+    console.log('Loaded students (count):', ALL.length);
+
+    // Populate the UI (top 3)
+    populateLeaderboard(ALL);
+
+    // Prepare search
     setupSearch();
+  } catch (err) {
+    console.error('Failed to load leaderboard:', err);
+    alert(`Failed to load leaderboard data: ${err.message || err}`);
+  }
+}
+
+// Auto-run if this script is loaded directly on the leaderboard page
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLeaderboard);
+} else {
+  initLeaderboard();
 }
