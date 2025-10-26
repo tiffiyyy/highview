@@ -19,7 +19,7 @@ def route(event, context):
             return createSession(event)
         # Session deletion endpoints
         elif path == "/sessions" and method == "DELETE" and "session_type" and "session_id" in params:
-            return deleteSession(params["session_id"], params["session_type"])
+            return deleteSession(params["session_type"], params["session_id"])
 
         return response(404, {"message": f"No route for {method} {path}"})
     

@@ -38,6 +38,9 @@ def createSession(event):
         'session_name': {'S': body['session_name']},
         'session_type': {'S': body['session_type']},
         'session_date': {'S': body['session_date']},
+        'session_description': {'S': body['session_description']},
+        'session_location': {'S': body['session_location']},
+        'session_time': {'S': body['session_time']},
         'created_at': {'S': now_iso()}
     }
     
@@ -55,6 +58,9 @@ def createSession(event):
             "session_name": body['session_name'],
             "session_type": body['session_type'],
             "session_date": body['session_date'],
+            "session_description": body['session_description'],
+            "session_location": body['session_location'],
+            "session_time": body['session_time'],
             "created_at": session_item['created_at']['S']
         }
     })
@@ -63,5 +69,8 @@ def createSession(event):
 print(createSession({"body": json.dumps({
     "session_name": "Test Session",
     "session_type": "PD",
-    "session_date": "12/15/2024"
+    "session_date": "12/15/2024",
+    "session_description": "Test Description",
+    "session_location": "Test Location",
+    "session_time": "10:00 AM"
 })}))
