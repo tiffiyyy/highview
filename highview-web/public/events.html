@@ -8,6 +8,109 @@
         <link rel="stylesheet" href="../src/events/events.css">
     </head>
     <body>
+        <div class="mycourses">
+            <header>
+                <h2>My Courses</h2>
+            </header>
+            <section class="tasksblock">
+                <div class="tasks">
+                <section class="calendaricon">
+                    <section class="month">
+                        <h6>OCT</h6>
+                    </section>
+                    <section class="date">
+                        <h5>26</h5>
+                    </section>
+                </section>
+                <div class="task1text">
+                    <h3>Career Summit: Innovation</h3>
+                    <div class="taskinfo">
+                        <div class="eventslabel">Event</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M9.66667 4.16667V9.66667L13.3333 11.5M18.8333 9.66667C18.8333 14.7293 14.7293 18.8333 9.66667 18.8333C4.60406 18.8333 0.5 14.7293 0.5 9.66667C0.5 4.60406 4.60406 0.5 9.66667 0.5C14.7293 0.5 18.8333 4.60406 18.8333 9.66667Z" stroke="#757575" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Sunday at 10:00am
+                    </div>
+                    </div>
+                    </div>
+                    <h4>Description</h4>
+                    <div class="descriptionblock">Put specific event descriptions here. Put specific event descriptions here, put specific event descriptions here. Put specific event descriptions here.</div>
+            </section>
+            <section class="studentblock">
+                <div class="searchblock">
+                    <svg class="search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20.9999 21.0004L16.6499 16.6504" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <form action="/search" method="get">
+                        <input type="search" name="q" placeholder="Search...">
+                    </form>
+                    </div>
+                    <div class="studentlist">
+                        <div class="studentrow">
+                            <div class="student">
+                                <img class="avatar" src="carlo.jpg" alt="Carlo Emilio">
+                                <span class="student-name">Carlo Emilio</span>
+                            </div>
+                            <div class="attendance-group">
+                                <button class="att-cell">P</button>
+                                <button class="att-cell">L</button>
+                                <button class="att-cell">A</button>
+                                <button class="att-cell">I</button>
+                            </div>
+                        </div>
+                        <div class="studentrow">
+                            <div class="student">
+                                <img class="avatar" src="daniel.jpg" alt="Daniel Jay Park">
+                                <span class="student-name">Daniel Jay Park</span>
+                            </div>
+                            <div class="attendance-group">
+                                <button class="att-cell">P</button>
+                                <button class="att-cell">L</button>
+                                <button class="att-cell">A</button>
+                                <button class="att-cell">I</button>
+                            </div>
+                        </div>
+                        <div class="studentrow">
+                            <div class="student">
+                                <img class="avatar" src="giannis.jpg" alt="Giannis Constantinou">
+                                <span class="student-name">Giannis Constantinou</span>
+                            </div>
+                            <div class="attendance-group">
+                                <button class="att-cell">P</button>
+                                <button class="att-cell">L</button>
+                                <button class="att-cell">A</button>
+                                <button class="att-cell">I</button>
+                            </div>
+                        </div>
+                        <div class="studentrow">
+                            <div class="student">
+                                <img class="avatar" src="briana.jpg" alt="Briana Lewis">
+                                <span class="student-name">Briana Lewis</span>
+                            </div>
+                            <div class="attendance-group">
+                                <button class="att-cell">P</button>
+                                <button class="att-cell">L</button>
+                                <button class="att-cell">A</button>
+                                <button class="att-cell">I</button>
+                            </div>
+                        </div>
+                        <div class="studentrow">
+                            <div class="student">
+                                <img class="avatar" src="sherry.jpg" alt="Sherry Roy">
+                                <span class="student-name">Sherry Roy</span>
+                            </div>
+                            <div class="attendance-group">
+                                <button class="att-cell">P</button>
+                                <button class="att-cell">L</button>
+                                <button class="att-cell">A</button>
+                                <button class="att-cell">I</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+            </section>
+        </div>
         <div id="sidebar-container"></div>
         <script>
             fetch('../src/sidebar.html')
@@ -15,6 +118,20 @@
                 .then(html => {
                     document.getElementById('sidebar-container').innerHTML = html;
                 });
+        </script>
+        <script>
+        document.querySelectorAll('.attendance-group').forEach(group => {
+            group.addEventListener('click', (e) => {
+                // Make sure we actually clicked a button with class 'att-cell'
+                if (!e.target.classList.contains('att-cell')) return;
+                // 1. remove 'selected' from ALL buttons in THIS group
+                group.querySelectorAll('.att-cell').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                // 2. add 'selected' to the one we clicked
+                e.target.classList.add('selected');
+            });
+        });
         </script>
     </body>
 </html>
