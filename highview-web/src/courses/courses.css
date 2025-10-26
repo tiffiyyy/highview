@@ -373,7 +373,7 @@ h3 {
 }
 
 .eventslabel{
-    width: 56px;
+    width: 90px;
     height: 24px;
     flex-shrink: 0;
     border-radius: 6px;
@@ -392,7 +392,7 @@ h3 {
 }
 
 .meetinglabel{
-    width: 68px;
+    width: 90px;
     height: 24px;
     flex-shrink: 0;
     border-radius: 6px;
