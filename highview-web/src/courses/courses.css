@@ -81,12 +81,12 @@ h1 {
 .calendar {
     margin-top: 30px;
     width: 1110px;
-    height: 450px;
+    height: 470px;
     flex-shrink: 0;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
     background: #FFF;
-    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04)
 }
 
 .calendar-grid {
@@ -237,7 +237,7 @@ input[type="search"] {
 .tasksblock{
     margin-top: 40px;
     width: 1110px;
-    height: 761px;
+    height: 740px;
     flex-shrink: 0;
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.18);
@@ -252,7 +252,7 @@ input[type="search"] {
     align-items: center;
     border-radius: 20px 20px 0 0;
     border: none;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.19);
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);   
 }
@@ -336,6 +336,10 @@ h5{
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04);
 }
 
+a {
+    text-decoration: none;   /* removes underline */
+}  
+
 h3 {
     color: #000;
     font-family: Inter;
@@ -344,6 +348,7 @@ h3 {
     font-weight: 500;
     display: flex;
     margin-top: 15px;
+    margin-bottom: 12px;
 }
 
 .eventslabel{
