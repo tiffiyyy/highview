@@ -133,3 +133,26 @@ export async function getEvents() {
     throw error;
   }
 }
+
+/**
+ * Get a single event/session by ID from backend
+ * @param {string} eventId - The session/event ID
+ * @returns {Promise<Object>} Single event/session data
+ */
+export async function getEventById(eventId) {
+  try {
+    // Fetch all events and filter by ID on the frontend
+    const allEvents = await getEvents();
+    const event = allEvents.find(e => e.session_id === eventId);
+    
+    if (!event) {
+      throw new Error(`Event with ID ${eventId} not found`);
+    }
+    
+    console.log('Found event by ID:', event);
+    return event;
+  } catch (error) {
+    console.error('Error fetching event by ID:', error);
+    throw error;
+  }
+}

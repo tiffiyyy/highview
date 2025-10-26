@@ -131,16 +131,15 @@ const renderEvents = () => {
         const { month, day, time } = formatDate(event.session_date);
         const labelClass = getLabelClass(event.session_type);
         
-        // Make it clickable if it's an event-type session
-        const eventTypes = ['event', 'field day', 'orientation', 'career summit', 'pd'];
-        const isClickable = eventTypes.includes(event.session_type.toLowerCase());
+        // Make all event types clickable
+        const isClickable = true;
         
         const taskElement = document.createElement('div');
         taskElement.className = 'tasks';
         
         if (isClickable) {
             const linkElement = document.createElement('a');
-            linkElement.href = './events.html';
+            linkElement.href = `/events.html?id=${event.session_id}`;
             linkElement.style.textDecoration = 'none';
             linkElement.style.color = 'inherit';
             linkElement.style.display = 'flex';

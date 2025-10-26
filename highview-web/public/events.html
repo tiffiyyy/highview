@@ -49,7 +49,7 @@
                     <div class="studentlist">
                         <div class="studentrow">
                             <div class="student">
-                                <img class="avatar" src="carlo.jpg" alt="Carlo Emilio">
+                                <img class="avatar" src="/carlo.jpg" alt="Carlo Emilio">
                                 <span class="student-name">Carlo Emilio</span>
                             </div>
                             <div class="attendance-group">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="studentrow">
                             <div class="student">
-                                <img class="avatar" src="daniel.jpg" alt="Daniel Jay Park">
+                                <img class="avatar" src="/daniel.jpg" alt="Daniel Jay Park">
                                 <span class="student-name">Daniel Jay Park</span>
                             </div>
                             <div class="attendance-group">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="studentrow">
                             <div class="student">
-                                <img class="avatar" src="giannis.jpg" alt="Giannis Constantinou">
+                                <img class="avatar" src="/giannis.jpg" alt="Giannis Constantinou">
                                 <span class="student-name">Giannis Constantinou</span>
                             </div>
                             <div class="attendance-group">
@@ -85,7 +85,7 @@
                         </div>
                         <div class="studentrow">
                             <div class="student">
-                                <img class="avatar" src="briana.jpg" alt="Briana Lewis">
+                                <img class="avatar" src="/briana.jpg" alt="Briana Lewis">
                                 <span class="student-name">Briana Lewis</span>
                             </div>
                             <div class="attendance-group">
@@ -97,7 +97,7 @@
                         </div>
                         <div class="studentrow">
                             <div class="student">
-                                <img class="avatar" src="sherry.jpg" alt="Sherry Roy">
+                                <img class="avatar" src="/sherry.jpg" alt="Sherry Roy">
                                 <span class="student-name">Sherry Roy</span>
                             </div>
                             <div class="attendance-group">
@@ -110,6 +110,14 @@
                     </div>
                     
             </section>
+            
+            <!-- QR Code Section -->
+            <div class="qr-code-container">
+                <h4 class="qr-label">Exit Ticket QR Code</h4>
+                <div class="qr-code-image" id="qr-code-display">
+                    <!-- QR code will be inserted here -->
+                </div>
+            </div>
         </div>
         <div id="sidebar-container"></div>
         <script>
@@ -119,6 +127,7 @@
                     document.getElementById('sidebar-container').innerHTML = html;
                 });
         </script>
+        <script type="module" src="../src/events/events.js"></script>
         <script>
         document.querySelectorAll('.attendance-group').forEach(group => {
             group.addEventListener('click', (e) => {
