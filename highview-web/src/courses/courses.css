@@ -173,7 +173,7 @@ h2 {
 .month{
     display: flex;
     height: 18px;
-    padding: 1px 9px 1px 12px;
+    padding: 1px 12px 2px 12px;
     justify-content: center;
     align-items: center;
     border-radius: 8px 8px 0 0;
@@ -185,7 +185,7 @@ h2 {
 h6 {
     color: #FFF;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: 150%; 
@@ -203,36 +203,63 @@ h6 {
 h5{
     color: #000;
     font-family: Inter;
-    font-size: 22px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 36px */
     display: flex;
+    margin-bottom: 40px;
 }
 
-.task1{
+.tasks {
+    background-color: #fff;
+}
+
+.task1 {
     display: flex;
-    width: 355px;
-    height: 55px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    flex-shrink: 0;
+    gap: 16px;
+
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+h1{
+    color: #000;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    display: flex;
+    margin-top: 15px;
 }
 
 .eventslabel{
-    width: 61px;
-    height: 26px;
+    width: 56px;
+    height: 24px;
     flex-shrink: 0;
     border-radius: 6px;
     border: 1px solid #47B299;
     background: rgba(10, 192, 0, 0.22);
     color: #00674A;
     font-family: Inter;
-    font-size: 15px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 22.5px */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 15px;
+}
+
+.taskinfo{
+    font-family: Inter, system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* space between icon and text */
+    color: #444;
+    font-size: 14px;
+    font-weight: 400;
 }
