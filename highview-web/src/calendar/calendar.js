@@ -2,11 +2,11 @@
 const currentDateElem = document.querySelector('.current-date');
 const calendarDaysContainer = document.getElementById('calendar-days');
 
-function generateTwoWeekCalendar() {
+function generateFourWeekCalendar() {
     const today = new Date();
 
     // Display current month and year
-    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     currentDateElem.textContent = `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
 
     // Calculate Monday of the current week
@@ -15,14 +15,13 @@ function generateTwoWeekCalendar() {
     const startOfWeek1 = new Date(today);
     startOfWeek1.setDate(today.getDate() - diffToMonday);
 
-    // Week 2
-    const startOfWeek2 = new Date(startOfWeek1);
-    startOfWeek2.setDate(startOfWeek1.getDate() + 7);
-
-    const weeks = [
-        { name: "Week 1", start: startOfWeek1 },
-        { name: "Week 2", start: startOfWeek2 }
-    ];
+    // Calculate the start dates for 4 weeks
+    const weeks = [];
+    for (let i = 0; i < 4; i++) {
+        const startOfWeek = new Date(startOfWeek1);
+        startOfWeek.setDate(startOfWeek1.getDate() + (i * 7));
+        weeks.push({ name: `Week ${i + 1}`, start: startOfWeek });
+    }
 
     // Clear previous calendar
     calendarDaysContainer.innerHTML = '';
@@ -32,8 +31,9 @@ function generateTwoWeekCalendar() {
         const weekRow = document.createElement('div');
         weekRow.className = 'week-row'; // Use flex to align days in a row
 
-        // Optional: week label
+        // Optional: Week label
         const weekLabel = document.createElement('div');
+        weekLabel.className = 'week-label';
         calendarDaysContainer.appendChild(weekLabel);
 
         for (let i = 0; i < 7; i++) {
@@ -43,7 +43,7 @@ function generateTwoWeekCalendar() {
             // Create day box
             const dayBox = document.createElement('div');
             dayBox.className = 'calendar-box';
-            
+
             // Highlight today
             if (date.toDateString() === today.toDateString()) {
                 dayBox.classList.add('today');
@@ -64,4 +64,4 @@ function generateTwoWeekCalendar() {
 }
 
 // Generate calendar on page load
-generateTwoWeekCalendar();
+generateFourWeekCalendar();
