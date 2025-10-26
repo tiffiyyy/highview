@@ -36,9 +36,12 @@
                     <input type="text" id="location" name="location" placeholder="Event Location" required>
                     <p><br>Input Mentor Email</p>
                     <input type="text" id="email" name="email" placeholder="Mentor Email" required>
+                    <br><br>
+                    <button type="submit" id="submitBtn">Create Event</button>
                 </form>
             </div>
         </div>
+        <script type="module" src="../src/createEvents/createEvents.js"></script>
         <script>
             fetch('../src/sidebar.html')
                 .then(response => response.text())

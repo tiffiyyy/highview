@@ -60,4 +60,40 @@ async function searchStudents(query) {
     }
 }
 
-export { getLeaderboards, searchStudents };
+/**
+ * Create a new event/session
+ * @param {Object} eventData - Event data object
+ * @returns {Promise<Object>} Created event data
+ */
+async function createEvent(eventData) {
+    try {
+        console.log('Creating event with data:', eventData);
+        const response = await fetch(`${API_BASE_URL}/sessions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(eventData)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Event created successfully:', data);
+        
+        // The API returns data wrapped in a body object, unwrap it
+        if (data && typeof data === 'object' && 'body' in data) {
+            const unwrapped = typeof data.body === 'string' ? JSON.parse(data.body) : data.body;
+            return unwrapped;
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('Error creating event:', error);
+        throw error;
+    }
+}
+
+export { getLeaderboards, searchStudents, createEvent };
