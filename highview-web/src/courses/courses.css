@@ -212,9 +212,9 @@ h5{
 
 .task1{
     display: flex;
-width: 355px;
-height: 55px;
-flex-direction: column;
-align-items: flex-start;
-flex-shrink: 0;
+    width: 355px;
+    height: 55px;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
 }
