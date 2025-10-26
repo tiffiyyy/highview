@@ -28,12 +28,11 @@ h1 {
     font-family: Inter;
     font-size: 15px;
     margin-left: 15px;
-
 }
 
 .calendar {
     margin-left: 18px;
-    width: 1110px;
+    width: 1130px;
     height: 450px;
     flex-shrink: 0;
     border-radius: 8px;
@@ -43,7 +42,7 @@ h1 {
 }
 
 .calendar-grid {
-    width: 1080px;
+    width: 1130px;
     height: 300px;
     flex-shrink: 0;
     border-radius: 0 0 8px 8px;
@@ -54,8 +53,8 @@ h1 {
 }
 
 .calendar-box {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 123px;
     flex-shrink: 0;
     fill: #d4f5ff;
     display: flex; 
@@ -74,7 +73,7 @@ h1 {
 }
 
 .weekday {
-    width: 150px; 
+    width: 160px; 
     height: 20px; 
     flex-shrink: 0;
     flex-wrap: wrap; 
@@ -88,4 +87,12 @@ h1 {
     font-weight: 500;
     line-height: normal;
     letter-spacing: -0.36px;
+}
+
+.week-row {
+    display: flex;
+    flex-direction: row;  /* Ensure days are arranged in a row */
+    justify-content: space-between;
+    gap: 10px;  /* Optional: adds space between day boxes */
+    margin-bottom: 10px; /* Optional: adds space between weeks */
 }

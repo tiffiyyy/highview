@@ -1,22 +1,67 @@
-const currentDate = document.querySelector(".current-date")
+// Get references to elements
+const currentDateElem = document.querySelector('.current-date');
+const calendarDaysContainer = document.getElementById('calendar-days');
 
-let date = new Date(), 
-currMonth = date.getMonth(), 
-currYear = date.getFullYear(), 
-currDay = date.getDate(); 
+function generateTwoWeekCalendar() {
+    const today = new Date();
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", 
-                "September", "October", "November", "December"];
+    // Display current month and year
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    currentDateElem.textContent = `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
 
+    // Calculate Monday of the current week
+    const dayOfWeek = today.getDay(); // Sunday=0, Monday=1 ...
+    const diffToMonday = (dayOfWeek + 6) % 7; // Monday=0
+    const startOfWeek1 = new Date(today);
+    startOfWeek1.setDate(today.getDate() - diffToMonday);
 
-const renderCalendar = () => {
-    let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay(), 
-    lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate(), 
-    lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate(); 
+    // Week 2
+    const startOfWeek2 = new Date(startOfWeek1);
+    startOfWeek2.setDate(startOfWeek1.getDate() + 7);
 
-    const startOfWeek = new Date(date); 
-    startOfWeek.setDate(date.getDate() - currDay);
-    const endOfWeek = startOfWeek + 14; 
-    currentDate.innerText = `${months[currMonth]} ${currYear}`
+    const weeks = [
+        { name: "Week 1", start: startOfWeek1 },
+        { name: "Week 2", start: startOfWeek2 }
+    ];
+
+    // Clear previous calendar
+    calendarDaysContainer.innerHTML = '';
+
+    weeks.forEach(week => {
+        // Create a container for the week
+        const weekRow = document.createElement('div');
+        weekRow.className = 'week-row'; // Use flex to align days in a row
+
+        // Optional: week label
+        const weekLabel = document.createElement('div');
+        calendarDaysContainer.appendChild(weekLabel);
+
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(week.start);
+            date.setDate(week.start.getDate() + i);
+
+            // Create day box
+            const dayBox = document.createElement('div');
+            dayBox.className = 'calendar-box';
+            
+            // Highlight today
+            if (date.toDateString() === today.toDateString()) {
+                dayBox.classList.add('today');
+            }
+
+            // Add day number
+            const dateNum = document.createElement('div');
+            dateNum.className = 'date-num';
+            dateNum.textContent = date.getDate();
+
+            dayBox.appendChild(dateNum);
+            weekRow.appendChild(dayBox);
+        }
+
+        // Append the week row to the calendar container
+        calendarDaysContainer.appendChild(weekRow);
+    });
 }
-renderCalendar(); 
+
+// Generate calendar on page load
+generateTwoWeekCalendar();
