@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document Title</title>
-        <link rel="stylesheet" href="../sidebar.css">
-        <link rel="stylesheet" href="messages.css">
+        <link rel="stylesheet" href="../src/sidebar.css">
+        <link rel="stylesheet" href="../src/settings/settings.css">
     </head>
     <body>
         <div id="sidebar-container"></div>
         <script>
-            fetch('../sidebar.html')
+            fetch('../src/sidebar.html')
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('sidebar-container').innerHTML = html;

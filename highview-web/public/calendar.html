@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Title</title>
-    <link rel="stylesheet" href="calendar.css">
-    <link rel="stylesheet" href="../sidebar.css">
-    <link href="./calendar.js" rel="javascript" />
+    <link rel="stylesheet" href="../src/calendar/calendar.css">
+    <link rel="stylesheet" href="../src/sidebar.css">
+    <link href="../src/calendar/calendar.js" rel="javascript" />
 </head>
 <body>
     <div class="calendar-page">
@@ -48,12 +48,12 @@
         </div>
     </div>
     <script>
-        fetch('../sidebar.html')
+        fetch('../src/sidebar.html')
             .then(response => response.text())
             .then(html => {
                 document.getElementById('sidebar-container').innerHTML = html;
             });
     </script>
-    <script src="calendar.js"></script> 
+    <script src="../src/calendar/calendar.js"></script> 
 </body>
 </html>

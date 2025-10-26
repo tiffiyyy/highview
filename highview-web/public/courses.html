@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link href="./courses.css" rel="stylesheet" />
-        <link href="./courses.js" rel="javascript" />
-        <link rel="stylesheet" href="../sidebar.css">
+        <link href="../src/courses/courses.css" rel="stylesheet" />
+        <link href="../src/courses/courses.js" rel="javascript" />
+        <link rel="stylesheet" href="../src/sidebar.css">
         <script type="text/javascript"src="./courses.js" defer></script>
     </head>
     <body>
@@ -185,7 +185,7 @@
             </section>
         </div>
         <script>
-            fetch('../sidebar.html')
+            fetch('../src/sidebar.html')
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById('sidebar-container').innerHTML = html;
